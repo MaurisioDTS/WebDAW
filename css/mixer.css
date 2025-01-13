@@ -4,9 +4,13 @@
     border-radius: 15px;
     padding: 10px;
 }
-.sliders{
+.slider{
+    margin: 5px;
+
     background-color: #474747;
     border: 5px;
     border-radius: 15px;
     padding: 10px;
+
+
 }
