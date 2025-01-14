@@ -3,14 +3,72 @@
     border: 5px;
     border-radius: 15px;
     padding: 10px;
+
+    display: inline-block;
 }
+
+.container {
+
+    background-color: #444;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+}
+
 .slider{
+    height: auto; /* Permite que se ajuste al contenido */
+    flex-direction: column; /* Organiza los elementos en columna */
+    align-items: center; /* Opcional: Centra los elementos */
+    justify-content: flex-start; /* Opcional: Alinea al principio */
+
     margin: 5px;
 
     background-color: #474747;
     border: 5px;
     border-radius: 15px;
     padding: 10px;
+}
+.panorama{
+    margin: 5px;
+    padding: 10px;
 
+    background-color: #474747;
+    border-radius: 15px;
+}
+button {
+    transition: 0.5s;
+    display: inline-block;
+    width: 50px; /* Ajusta según el tamaño deseado */
+    height: 50px; /* Ajusta según el tamaño deseado */
+    background-color: #ddd; /* Color base del botón */
+    border: none;
+    border-radius: 5px;
+    box-shadow: inset -2px -2px 5px #aaa, inset 2px 2px 5px #fff, 0 0 5px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    line-height: 45px; /* Centrar el texto */
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.button-container {
+    display: flex;
+    flex-direction: column; /* Alinea en columna */
+    gap: 10px; /* Espacio entre los botones */
+    margin-top: 10px;
+}
+.mute {
+    transition: 0.01s;
+    background-color: #ffb64c; /* Color iluminado */
+    box-shadow: inset 2px 2px 5px #9e7131, inset -2px -2px 5px #493417, 0 0 10px #9e7131;
+    color: #000; /* Cambia el color del texto al activarse */
 
+}
+.solo {
+    transition: 0.01s;
+    background-color: #ff4c4c; /* Color iluminado */
+    box-shadow: inset 2px 2px 5px #9e3131, inset -2px -2px 5px #491717, 0 0 10px #9e3131;
+    color: #000; /* Cambia el color del texto al activarse */
 }
