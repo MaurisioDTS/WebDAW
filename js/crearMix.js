@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const samples = [
+    const noteLabels = [
       "dibass.mp3",
       "drums.wav",
     ];
@@ -10,7 +10,7 @@ $(document).ready(function () {
         const sampleControllers = [];
 
         // Generar controles para cada sample
-        samples.forEach((path, index) => {
+        noteLabels.forEach((path, index) => {
                 // Crear elementos de Tone.js
                 var player = new Tone.Player({
                     "url" : path,
