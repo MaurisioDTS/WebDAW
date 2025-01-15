@@ -30,6 +30,28 @@ $(document).ready(function () {
                         <div class="container">
                             <div class="slider">
                                 <input class="volume-slider" type="range" orient="vertical" min="-96" max="6" value="0">
+                                <div class="vca">
+                                <div class="vca__meter"></div>
+                                <div class="vca__markers">
+                                    <div>12</div>
+                                    <div>6</div>
+                                    <div>0</div>
+                                    <div>3</div>
+                                    <div>6</div>
+                                    <div>9</div>
+                                    <div>12</div>
+                                    <div>15</div>
+                                    <div>18</div>
+                                    <div>21</div>
+                                    <div>24</div>
+                                    <div>30</div>
+                                    <div>35</div>
+                                    <div>40</div>
+                                    <div>45</div>
+                                    <div>50</div>
+                                    <div>60</div>
+                              </div>
+                             </div>
                             </div>
                             <div class="button-container">
                                 <button class="mute-btn">M</button>
@@ -37,9 +59,9 @@ $(document).ready(function () {
                                 <button class="phase-btn">Ø</button>
                             </div>
                         </div>
-                            <div class="panorama">
-                                <input class="pan-slider" type="range" min="-1" max="1" step="0.01" value="0">
-                            </div>
+                        <div class="panorama">
+                            <input class="pan-slider" type="range" min="-1" max="1" step="0.01" value="0">
+                        </div>
                         <h4>Sample ${index + 1}</h4>
                     </div>
                 `);
