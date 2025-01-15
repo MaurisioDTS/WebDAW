@@ -41,10 +41,10 @@ button {
     display: inline-block;
     width: 50px; /* Ajusta según el tamaño deseado */
     height: 50px; /* Ajusta según el tamaño deseado */
-    background-color: #ddd; /* Color base del botón */
+    background-color: #9f9f9f; /* Color base del botón */
     border: none;
     border-radius: 5px;
-    box-shadow: inset -2px -2px 5px #aaa, inset 2px 2px 5px #fff, 0 0 5px rgba(0, 0, 0, 0.3);
+    box-shadow: inset -2px -2px 5px #878787, inset 2px 2px 5px #737373, 0 0 5px rgba(34, 34, 34, 0.3);
     font-family: Arial, sans-serif;
     font-size: 14px;
     color: #333;
@@ -54,6 +54,9 @@ button {
     cursor: pointer;
 }
 .button-container {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #171717;
     display: flex;
     flex-direction: column; /* Alinea en columna */
     gap: 10px; /* Espacio entre los botones */
@@ -70,5 +73,11 @@ button {
     transition: 0.01s;
     background-color: #ff4c4c; /* Color iluminado */
     box-shadow: inset 2px 2px 5px #9e3131, inset -2px -2px 5px #491717, 0 0 10px #9e3131;
+    color: #000; /* Cambia el color del texto al activarse */
+}
+.phase {
+    transition: 0.01s;
+    background-color: #644cff; /* Color iluminado */
+    box-shadow: inset 2px 2px 5px #383164, inset -2px -2px 5px #201749, 0 0 10px #49319e;
     color: #000; /* Cambia el color del texto al activarse */
 }
