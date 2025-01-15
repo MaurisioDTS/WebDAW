@@ -123,9 +123,6 @@ $(document).ready(function () {
         $notes.append(`<div class="note-label">${note}</div>`);
     });
 
-
-
-
     // Crear la cuadrícula de celdas
     const cells = [];
     for (let row = 0; row < 8; row++) {

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     const noteLabels = [
       "dibass.mp3",
-      "drums.wav",
+        "dibass.mp3",
     ];
 
     $('#start').click(async () => {
@@ -34,6 +34,7 @@ $(document).ready(function () {
                             <div class="button-container">
                                 <button class="mute-btn">M</button>
                                 <button class="solo-btn">S</button>
+                                <button class="phase-btn">Ø</button>
                             </div>
                         </div>
                             <div class="panorama">
@@ -48,14 +49,28 @@ $(document).ready(function () {
 
             // Botón Mute
             sampleDiv.find('.mute-btn').click(function () {
-              const controller = sampleControllers[index];
-              controller.isMuted = !controller.isMuted;
-              controller.muteGain.gain.value = controller.isMuted ? 0 : 1;
-              if(controller.isMuted){
-                  $(this).addClass("mute");
-              } else {
-                  $(this).removeClass("mute");
-              }
+                const controller = sampleControllers[index];
+                controller.isMuted = !controller.isMuted;
+                controller.muteGain.gain.value = controller.isMuted ? 0 : 1;
+                if(controller.isMuted){
+                        $(this).addClass("mute");
+                    } else{
+                        $(this).removeClass("mute");
+                    }
+            });
+            // inversión de fase
+            sampleDiv.find('.phase-btn').click(function () {
+
+
+                player.connect(inverter);
+                inverter;
+
+                if(vol>0){
+                    $(this).addClass("phase");
+                } else {
+                    $(this).removeClass("phase");
+                }
+                console.log("phase inverted."+inverter);
             });
 
             // Botón Solo
