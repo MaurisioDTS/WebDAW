@@ -5,10 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="./css/DrumRack.css"/>
+        <link rel="stylesheet" href="./css/mixer.css"/>
 
         <script src="js/jquery-min.js"></script>
-
-        <link rel="stylesheet" href="./css/mixer.css"/>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.42/Tone.js"></script>
@@ -19,9 +18,7 @@
     <body>
 
         <div class="controls">
-            <button class="button play">Play</button>
-            <button class="button stop">Stop</button>
-            <button class="button record">Record</button>
+            <button class="ssl-button" id="start">Start</button>
         </div>
 
         <div class="grid-container" style="display: flex; position: relative;">
@@ -32,13 +29,7 @@
                 <!-- Las celdas se generarán dinámicamente con JavaScript -->
             </div>
         </div>
-
-        <button id="start">Start</button>
-
-        <button id="play-all">Play</button>
-        <button id="stop-all">stop</button>
         <div id="controls"></div>
-
         <script src="js/DrumRack.js"></script>
     </body>
 </html>

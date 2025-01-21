@@ -7,7 +7,10 @@
 
     margin: auto;
 }
-
+.tag{
+    margin-top: 10px;
+    text-align: center;
+}
 .container {
     background-color: #444;
     border-radius: 10px;
@@ -44,7 +47,7 @@
 .pan-slider{
     width: 129px;
 }
-button {
+.ssl-button {
     transition: 0.5s;
     display: inline-block;
     width: 50px; /* Ajusta según el tamaño deseado */
