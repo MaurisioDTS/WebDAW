@@ -1,67 +1,3 @@
-// =====================================================0
-//  VARIABLES PADALUSTRAS
-
-const $grid = $('#grid');
-const $notes = $('#notes');
-const noteLabels = ["crash", "shaker", "cowbell", "ride", "hihat", "rimshot", "snare", "kick"];
-const bpm = 120 * 2;
-const intervalTime = (60 / bpm) * 1000;
-let intervalId;
-let currentColumn = 0;
-
-const cells = [];
-
-// =====================================================0
-//  FUNCIONES
-
-function aparecerControles() {
-    let temp = $(`
-                    <button class="ssl-button" id="play">Play</button>
-                    <button class="ssl-button" id="stop">Stop</button>
-                    <button class="ssl-button" id="rec">Rec</button>
-                    <br>
-                    <button class="ssl-button" id="play-all">Play</button>
-                    <button class="ssl-button" id="stop-all">stop</button>
-                `);
-    $('.controls').append(temp);
-}
-
-const playSound = (note) => {
-    console.log(note);
-    sampleControllers[note].player.start();
-};
-
-const stopSequence = () => {
-    clearInterval(intervalId);
-    cells.forEach(row => row.forEach(cell => cell.classList.remove('active-column')));
-    currentColumn = 0;
-
-    // Resetear la posición de la barra de progreso
-    progressBar.style.transform = 'translateX(0)';
-};
-
-const playSequence = () => {
-    stopSequence(); // Detener cualquier secuencia previa
-    intervalId = setInterval(() => {
-        // Limpiar la columna anterior
-        const prevColumn = (currentColumn === 0) ? 15 : currentColumn - 1;
-        cells.forEach(row => row[prevColumn].removeClass('active-column'));
-
-        // Marcar la columna actual
-        cells.forEach(row => row[currentColumn].addClass('active-column'));
-
-        // Reproducir sonidos activos en la columna actual
-        cells.forEach((row, rowIndex) => {
-            if (row[currentColumn].hasClass('active')) {
-                playSound(noteLabels[rowIndex]);
-            }
-        });
-
-        // Avanzar a la siguiente columna
-        currentColumn = (currentColumn + 1) % 16;
-    }, intervalTime);
-};
-
 /*const playSequence = () => {
     stopSequence();
     intervalId = setInterval(() => {
@@ -94,7 +30,70 @@ const playSequence = () => {
 //      aqui es donde surge la magia.
 
 $(document).ready(function () {
+    //  =====================================================0
+    //      VARIABLES PADALUSTRAS
 
+    const $grid = $('#grid');
+    const $notes = $('#notes');
+
+    //      labels ===========0
+    const noteLabels = ["crash", "shaker", "cowbell", "ride", "hihat", "rimshot", "snare", "kick"];
+    noteLabels.forEach(note => {
+        $notes.append(`<div value="`+noteLabels.indexOf(note)+`" class="note-label">${note}</div>`);
+    });
+
+    //      creamos la cuadricula   ===========0
+    const cells = [];
+    for (let row = 0; row < 8; row++) {
+        const rowCells = [];
+        for (let col = 0; col < 16; col++) {
+            const cell = document.createElement('div');
+            cell.classList.add('cell');
+
+            // Alternar entre bloques de 4 columnas oscuras y claras
+            if (Math.floor(col / 4) % 2 === 1) {
+                cell.classList.add('light');
+            }
+
+            // Manejar el clic en la celda
+            cell.addEventListener('click', () => {
+                cell.classList.toggle('active'); // Cambiar estado activo/inactivo
+            });
+
+            cell.val = 1;
+
+            grid.appendChild(cell);
+            rowCells.push(cell);
+        }
+        cells.push(rowCells);
+    }
+
+    let intervalId;
+    let currentColumn = 0;
+    const bpm = 120; // Beats per minute
+    const intervalTime = (60 / bpm) * 1000; // Milisegundos entre pasos
+
+    //const cells = [];
+
+    //  =====================================================0
+    //      FUNCIONES
+
+    function aparecerControles() {
+        let temp = $(`
+                    <button class="ssl-button" id="play">Play</button>
+                    <button class="ssl-button" id="stop">Stop</button>
+                    <button class="ssl-button" id="rec">Rec</button>
+                    <br>
+                    <button class="ssl-button" id="play-all">Play</button>
+                    <button class="ssl-button" id="stop-all">stop</button>
+                `);
+        $('.controls').append(temp);
+    }
+
+
+
+    //  ====================================================
+    //      se crea la mixer
     $('#start').click(async () => {
         await Tone.start();
         console.log("comienza! esta noche oscura te tortura la locura");
@@ -237,32 +236,48 @@ $(document).ready(function () {
         //  FIN DE LA GENERACIÓN
         $("#start").hide();
 
+        const playSound = () => {
+            console.log();
+            sampleControllers[1].player.start();
+        };
+
+        const stopSequence = () => {
+            clearInterval(intervalId);
+            cells.forEach(row => row.forEach(cell => cell.classList.remove('active-column')));
+            currentColumn = 0;
+        };
+
+        const playSequence = () => {
+            console.log("se playea la sequence")
+            stopSequence();
+            intervalId = setInterval(() => {
+                // Resetear las columnas anteriores
+                if (currentColumn > 0) {
+                    cells.forEach(row => row[currentColumn - 1].classList.remove('active-column'));
+                } else {
+                    cells.forEach(row => row[15].classList.remove('active-column'));
+                }
+
+                // Marcar la columna actual
+                cells.forEach(row => row[currentColumn].classList.add('active-column'));
+
+                // Reproducir notas activas en la columna actual
+                cells.forEach((row, rowIndex) => {
+                    if (row[currentColumn].classList.contains('active')) {
+                        playSound(noteLabels[rowIndex]);
+                    }
+                });
+
+                // Avanzar a la siguiente columna
+                currentColumn = (currentColumn + 1) % 16;
+            }, intervalTime);
+        };
+
         // Manejar botones
         $('#play').click(playSequence);
 
         $('#stop').click(stopSequence);
     });
-
-    noteLabels.forEach(note => {
-        $notes.append(`<div class="note-label">${note}</div>`);
-    });
-
-    // Crear la cuadrícula de celdas
-    for (let row = 0; row < 8; row++) {
-        cells[row] = [];
-        for (let col = 0; col < 16; col++) {
-            const $cell = $('<div class="cell"></div>');
-            if (Math.floor(col / 4) % 2 === 1) $cell.addClass('light');
-
-            // Toggle estado activo/inactivo al hacer clic
-            $cell.on('click', function () {
-                $(this).toggleClass('active');
-            });
-
-            $grid.append($cell);
-            cells[row].push($cell);
-        }
-    }
 
     /** Crear una barra de progreso
     const progressBar = document.createElement('div');
