@@ -1,8 +1,5 @@
 $(document).ready(function () {
-    const noteLabels = [
-      "dibass.mp3",
-        "dibass.mp3",
-    ];
+    const noteLabels = ["dibass.mp3", "dibass.mp3",];
 
     $('#start').click(async () => {
         await Tone.start();
@@ -11,21 +8,21 @@ $(document).ready(function () {
 
         // Generar controles para cada sample
         noteLabels.forEach((path, index) => {
-                // Crear elementos de Tone.js
-                var player = new Tone.Player({
-                    "url" : path,
-                });
+            // Crear elementos de Tone.js
+            var player = new Tone.Player({
+                "url": path,
+            });
 
-                const panner = new Tone.Panner(0).toDestination();
-                const volume = new Tone.Volume(0).connect(panner);
-                const muteGain = new Tone.Gain(1).connect(volume); // Control de mute
-                player.connect(muteGain);
+            const panner = new Tone.Panner(0).toDestination();
+            const volume = new Tone.Volume(0).connect(panner);
+            const muteGain = new Tone.Gain(1).connect(volume); // Control de mute
+            player.connect(muteGain);
 
-                // Almacenar los elementos en un objeto
-                sampleControllers.push({ player, panner, volume, muteGain, isMuted: false, isSoloed: false });
+            // Almacenar los elementos en un objeto
+            sampleControllers.push({player, panner, volume, muteGain, isMuted: false, isSoloed: false});
 
-                // Crear estructura de controles con jQuery (<script>$('.pan-slider').fancyknob();</script>)
-                const sampleDiv = $(`
+            // Crear estructura de controles con jQuery (<script>$('.pan-slider').fancyknob();</script>)
+            const sampleDiv = $(`
                     <div class="sample-controls">
                         <div class="container">
                             <div class="slider">
@@ -74,11 +71,11 @@ $(document).ready(function () {
                 const controller = sampleControllers[index];
                 controller.isMuted = !controller.isMuted;
                 controller.muteGain.gain.value = controller.isMuted ? 0 : 1;
-                if(controller.isMuted){
-                        $(this).addClass("mute");
-                    } else{
-                        $(this).removeClass("mute");
-                    }
+                if (controller.isMuted) {
+                    $(this).addClass("mute");
+                } else {
+                    $(this).removeClass("mute");
+                }
             });
             // inversión de fase
             sampleDiv.find('.phase-btn').click(function () {
@@ -87,56 +84,56 @@ $(document).ready(function () {
                 player.connect(inverter);
                 inverter;
 
-                if(vol>0){
+                if (vol > 0) {
                     $(this).addClass("phase");
                 } else {
                     $(this).removeClass("phase");
                 }
-                console.log("phase inverted."+inverter);
+                console.log("phase inverted." + inverter);
             });
 
             // Botón Solo
             sampleDiv.find('.solo-btn').click(function () {
-              const controller = sampleControllers[index];
-              controller.isSoloed = !controller.isSoloed;
+                const controller = sampleControllers[index];
+                controller.isSoloed = !controller.isSoloed;
 
-              // Ajustar solo/mute para todos los samples
-              sampleControllers.forEach((c, i) => {
-                c.muteGain.gain.value = controller.isSoloed && i !== index ? 0 : (c.isMuted ? 0 : 1);
+                // Ajustar solo/mute para todos los samples
+                sampleControllers.forEach((c, i) => {
+                    c.muteGain.gain.value = controller.isSoloed && i !== index ? 0 : (c.isMuted ? 0 : 1);
 
-                  if(controller.isSoloed){
-                      $(this).addClass("solo");
-                  } else {
-                      $(this).removeClass("solo");
-                  }
-              });
+                    if (controller.isSoloed) {
+                        $(this).addClass("solo");
+                    } else {
+                        $(this).removeClass("solo");
+                    }
+                });
             });
 
             // Slider de Volumen
             sampleDiv.find('.volume-slider').on('input', function () {
-              volume.volume.value = $(this).val();
-              console.log(player.url+"gain:"+volume.volume.value);
+                volume.volume.value = $(this).val();
+                console.log(player.url + "gain:" + volume.volume.value);
             });
 
             // Slider de Panorama
             sampleDiv.find('.pan-slider').on('input', function () {
-              panner.pan.value = $(this).val();
-              console.log("pan:"+volume.volume.value);
+                panner.pan.value = $(this).val();
+                console.log("pan:" + volume.volume.value);
             });
 
             $('#play-all').click(() => {
-                sampleControllers.forEach(({ player }) => {
-                  player.start();
+                sampleControllers.forEach(({player}) => {
+                    player.start();
                 });
             });
 
             $('#stop-all').click(() => {
-                sampleControllers.forEach(({ player }) => {
-                  player.stop();
+                sampleControllers.forEach(({player}) => {
+                    player.stop();
                 });
             });
 
-            $(function() {
+            $(function () {
 
                 /*$(".dial").knob({
                     'min':-50,
@@ -146,7 +143,7 @@ $(document).ready(function () {
 
             // Añadir los controles al contenedor
             $('#controls').append(sampleDiv);
-          });
+        });
         // =====================
         //  FIN DE LA GENERACIÓN
         $("#start").hide();
