@@ -47,7 +47,7 @@ $(document).ready(function () {
     for (let row = 0; row < 8; row++) {
         const rowCells = [];
         for (let col = 0; col < 16; col++) {
-            const cell = document.createElement('div');
+            const cell = document.createElement('div', col);
             cell.classList.add('cell');
 
             // Alternar entre bloques de 4 columnas oscuras y claras
