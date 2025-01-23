@@ -192,3 +192,28 @@ body.sticky-header{
 	  }
 	}
   }
+
+.tab-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.tab-buttons button {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+}
+.tab-buttons button.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+.tab-content {
+    display: none; /* Ocultamos inicialmente */
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+.tab-content.active {
+    display: block; /* Mostramos cuando activo */
+}

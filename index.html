@@ -1,98 +1,120 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head> <!-- Metadatos de la página. -->
-        <title>Titulo</title>
-        <meta charset="utf-8"/>
-        <meta name="description" content="Debería una hermosa descripción acompañar esta página?" />
-        <meta name="robots" content="index,follow"/> 
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head> <!-- Metadatos de la página. -->
+    <title>Titulo</title>
+    <meta charset="utf-8"/>
+    <meta content="Debería una hermosa descripción acompañar esta página?" name="description"/>
+    <meta content="index,follow" name="robots"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
 
-        <script src="js/jquery-min.js"></script>
+    <script src="js/jquery-min.js"></script>
+    <script src="js/bootstrap.js"></script>
 
-        <link rel="stylesheet" href="./css/bootstrap.css"/>
-        <link rel="stylesheet" href="./css/bootstrap-grid.css"/>
+    <script src="js/base.js"></script>
 
-        <link rel="stylesheet" href="./css/style.css"/>
-        <link rel="shortcut icon" href="./favicon.ico"/>
-        <!--
-            <meta http-equiv="refresh" content="15;URL=http://google.com"/>
-            <meta name="author" content=""/>
-            <meta name="keywords" content=""/>
-        -->
-    </head>
+    <link href="./css/bootstrap.css" rel="stylesheet"/>
+    <link href="./css/bootstrap-grid.css" rel="stylesheet"/>
 
-    <!-- Cuerpo de la página, rellenalo con cosas. -->
-    <body>  
-        <!--    Empieza header  -->
-        <header>
-            <h1>hola mundo</h1>
-            <nav>
-              <a href="">play</a>
-              <a href="">login</a>
-              <a href="">nuevo</a>
-              <a href="">acerca</a>
-                <div id="drums" class="nav-content">
+    <link href="./css/style.css" rel="stylesheet"/>
+    <link href="./favicon.ico" rel="shortcut icon"/>
+    <!--
+        <meta http-equiv="refresh" content="15;URL=http://google.com"/>
+        <meta name="author" content=""/>
+        <meta name="keywords" content=""/>
+    -->
+</head>
 
-                </div>
-            </nav>
-        </header>
-      <!--    opciones raras    -->
-      <div class="content">
-        <div class="options">
-          <!--    selector pocho    -->
-          <form class="container">
-            <label for="instrument">instrumento</label>
-            <select name="inst" id="instrument" class="container">
-              <option value="piano">piano</option>
-              <option value="bass">bajo</option>
-              <option value="guitar">guitarra</option>
-            </select>
-          </form>
-          <!--    slider del release    -->
-          <form class="container">
-            <p>release: </p>
-            <input id="release" type="range" min="100" max="6000" value="500">
-          </form>
-          <!--    controles metronomo   -->
-          <div class="container">
-            <p>metronomo: </p>
-            <select name="drum" id="drum" class="container">
-              <option value="cowbell">cencerro</option>
-              <option value="shaker">huevo</option>
-            </select>
-            <input id="tempoSlider" type="range" min="60" max="250" value="120">
-            <button id="play">Play</button>
-            <button id="pause">Pause</button>
-            
-            <script src="js/blip.js"></script>
-            <script src="js/metronome.js"></script>
-          </div>
+<!-- Cuerpo de la página, rellenalo con cosas. -->
+<body>
+<!--    Empieza header  -->
+<header>
+    <h1>hola mundo</h1>
+    <nav>
+        <a href="">play</a>
+        <a href="">login</a>
+        <a href="">nuevo</a>
+        <a href="">acerca</a>
+        <div class="nav-content" id="drums">
+
         </div>
-          <!--    empieza teclado pocho   -->
-          <section>
-              <div class="container" id="teclado">
-                  <script src="js/teclado.js"></script>
-                  
-                  <img class="natural" id="c" src="res/img/natural.svg">
-                  <!----><img class="semitono" id="" src="res/img/semitone.svg">
-                  <img class="natural" id="d" src="res/img/natural.svg">
-                  <!----><img class="semitono" id="" src="res/img/semitone.svg">
-                  <img class="natural" id="e" src="res/img/natural.svg">
+    </nav>
+</header>
 
-                  <img class="natural" id="f" src="res/img/natural.svg">
-                  <!----><img class="semitono" id="" src="res/img/semitone.svg">
-                  <img class="natural" id="g" src="res/img/natural.svg">
-                  <!----><img class="semitono" id="" src="res/img/semitone.svg">
-                  <img class="natural" id="a" src="res/img/natural.svg">
-                  <!----><img class="semitono" id="" src="res/img/semitone.svg">
-                  <img class="natural" id="b" src="res/img/natural.svg">
-              </div>
-          </section>
-          <!--    acaba teclado pocho-->
-      </div>
-        <aside>
-            <p>Esto es un "Aside".</p>
-        </aside>
-            <!-- Pie de página. -->
-    </body>
+<!-- Botones de las pestañas -->
+<div class="tab-buttons">
+    <button class="active" data-tab="tab1">Tab 1</button>
+    <button data-tab="tab2">Tab 2</button>
+    <button data-tab="tab3">Tab 3</button>
+</div>
+
+<!-- Contenido de las pestañas -->
+<div class="tab-content active" id="tab1">
+    <!--    opciones raras    -->
+    <div class="content">
+        <div class="options">
+            <!--    selector pocho    -->
+            <form class="container">
+                <label for="instrument">instrumento</label>
+                <select class="container" id="instrument" name="inst">
+                    <option value="piano">piano</option>
+                    <option value="bass">bajo</option>
+                    <option value="guitar">guitarra</option>
+                </select>
+            </form>
+            <!--    slider del release    -->
+            <form class="container">
+                <p>release: </p>
+                <input id="release" max="6000" min="100" type="range" value="500">
+            </form>
+            <!--    controles metronomo   -->
+            <div class="container">
+                <p>metronomo: </p>
+                <select class="container" id="drum" name="drum">
+                    <option value="cowbell">cencerro</option>
+                    <option value="shaker">huevo</option>
+                </select>
+                <input id="tempoSlider" max="250" min="60" type="range" value="120">
+                <button id="play">Play</button>
+                <button id="pause">Pause</button>
+
+                <script src="js/blip.js"></script>
+                <script src="js/metronome.js"></script>
+            </div>
+        </div>
+        <!--    empieza teclado pocho   -->
+        <section>
+            <div class="container" id="teclado">
+                <script src="js/teclado.js"></script>
+
+                <img class="natural" id="c" src="res/img/natural.svg">
+                <!----><img class="semitono" id="" src="res/img/semitone.svg">
+                <img class="natural" id="d" src="res/img/natural.svg">
+                <!----><img class="semitono" id="" src="res/img/semitone.svg">
+                <img class="natural" id="e" src="res/img/natural.svg">
+
+                <img class="natural" id="f" src="res/img/natural.svg">
+                <!----><img class="semitono" id="" src="res/img/semitone.svg">
+                <img class="natural" id="g" src="res/img/natural.svg">
+                <!----><img class="semitono" id="" src="res/img/semitone.svg">
+                <img class="natural" id="a" src="res/img/natural.svg">
+                <!----><img class="semitono" id="" src="res/img/semitone.svg">
+                <img class="natural" id="b" src="res/img/natural.svg">
+            </div>
+        </section>
+        <!--    acaba teclado pocho-->
+    </div>
+</div>
+<div class="tab-content" id="tab2">
+    Contenido del Tab 2
+</div>
+<div class="tab-content" id="tab3">
+    Contenido del Tab 3
+</div>
+
+
+<aside>
+    <p>Esto es un "Aside".</p>
+</aside>
+<!-- Pie de página. -->
+</body>
 </html>
