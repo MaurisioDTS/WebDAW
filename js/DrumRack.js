@@ -44,10 +44,11 @@ $(document).ready(function () {
 
     //      creamos la cuadricula   ===========0
     const cells = [];
-    for (let row = 0; row < 8; row++) {
+    for (let row = 0; row < noteLabels.length; row++) {
         const rowCells = [];
         for (let col = 0; col < 16; col++) {
-            const cell = document.createElement('div', col);
+            const cell = document.createElement('div');
+            cell.setAttribute('data-value', row);
             cell.classList.add('cell');
 
             // Alternar entre bloques de 4 columnas oscuras y claras
@@ -70,7 +71,7 @@ $(document).ready(function () {
 
     let intervalId;
     let currentColumn = 0;
-    const bpm = 120; // Beats per minute
+    const bpm = 120*2; // Beats per minute
     const intervalTime = (60 / bpm) * 1000; // Milisegundos entre pasos
 
     //const cells = [];
@@ -236,9 +237,9 @@ $(document).ready(function () {
         //  FIN DE LA GENERACIÓN
         $("#start").hide();
 
-        const playSound = () => {
-            console.log();
-            sampleControllers[1].player.start();
+        const playSound = (cell) => {
+            console.log(cell);
+            sampleControllers[cell.getAttribute('data-value')].player.start();
         };
 
         const stopSequence = () => {
@@ -264,7 +265,7 @@ $(document).ready(function () {
                 // Reproducir notas activas en la columna actual
                 cells.forEach((row, rowIndex) => {
                     if (row[currentColumn].classList.contains('active')) {
-                        playSound(noteLabels[rowIndex]);
+                        playSound(row[currentColumn]);
                     }
                 });
 

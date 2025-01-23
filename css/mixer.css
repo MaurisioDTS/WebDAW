@@ -1,8 +1,17 @@
+.faders{
+    align-items: center;
+    display: block;
+}
+
+.grid-container{
+    display: block;
+    position: relative;
+}
 .sample-controls{
     background-color: #333;
     border-radius: 10px;
     padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     display: inline-block;
 
     margin: auto;
@@ -12,7 +21,7 @@
     text-align: center;
 }
 .container {
-    background-color: #444;
+    background-color: #474747;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     display: flex;
@@ -26,7 +35,7 @@
     align-items: center; /* Opcional: Centra los elementos */
     justify-content: flex-start; /* Opcional: Alinea al principio */
 
-    background-color: rgba(34, 34, 34, 0.3);
+    background-color: #474747;
     border: 5px;
     border-radius: 10px;
     padding: 10px;
@@ -36,6 +45,8 @@
     height: auto;
     flex-direction: row;
     align-items: center;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 
     margin-top: 10px;
     padding: 10px;
@@ -66,7 +77,7 @@
 }
 .button-container {
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #171717;
     display: flex;
     flex-direction: column; /* Alinea en columna */
