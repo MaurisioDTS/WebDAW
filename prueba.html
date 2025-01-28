@@ -33,17 +33,22 @@
         .key:active {
             background-color: #ffd700;
         }
-        .adsr-controls, .distortion-controls {
+        .adsr-controls, .distortion-controls, .filter-controls, .oscillator-controls {
             margin-top: 20px;
         }
-        .adsr-controls label, .distortion-controls label {
+        .adsr-controls label, .distortion-controls label, .filter-controls label, .oscillator-controls label {
             margin-right: 10px;
         }
-        .adsr-controls input, .distortion-controls input {
+        .adsr-controls input, .distortion-controls input, .filter-controls input, .oscillator-controls select {
             margin-right: 20px;
             width: 60px;
         }
+        .oscillator-controls select {
+            width: auto;
+        }
     </style>
+
+    <link type="text/css" rel="stylesheet" href="https://mczak.com/code/piano/assets/css/style.css">
 </head>
 <body>
 <h1>Synth</h1>
@@ -79,6 +84,73 @@
     <input type="number" id="filter-resonance" step="0.1" min="0" max="10" value="1">
 </div>
 
+<div class="oscillator-controls">
+    <h3>Oscilador</h3>
+    <label for="oscillator-type">Tipo:</label>
+    <select id="oscillator-type">
+        <option value="sawtooth">Saw</option>
+        <option value="square">Square</option>
+        <option value="pwm">Triangle (PWM)</option>
+        <option value="fatsawtooth">Super Saw</option>
+        <option value="amtriangle">Triangle Mod</option>
+    </select>
+</div>
+
+<ul class="piano">
+    <li class="key">
+        <div class="white-key key-key" data-key="20" data-note="C4"></div>
+        <div class="black-key key-key" data-key="81" data-note="C#4"></div>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="65" data-note="D4"></span>
+        <span class="black-key key-key" data-key="87" data-note="D#4"></span>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="83" data-note="E4"></span>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="68" data-note="F4"></span>
+        <span class="black-key key-key" data-key="82" data-note="F#4"></span>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="70" data-note="G4"></span>
+        <span class="black-key key-key" data-key="84" data-note="G#4"></span>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="71" data-note="A4"></span>
+        <span class="black-key key-key" data-key="89" data-note="A#4"></span>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="72" data-note="B4"></span>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="74" data-note="5C"></span>
+        <span class="black-key key-key" data-key="73" data-note="5Cs"></span>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="75" data-note="5D"></span>
+        <span class="black-key key-key" data-key="79" data-note="5Ds"></span>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="76" data-note="5E"></span>
+    </li>
+    <li class="key">
+        <div class="white-key key-key" data-key="186" data-note="5F"></div>
+        <div class="black-key" data-key="219" data-note="5Fs"></div>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="222" data-note="5G"></span>
+        <span class="black-key" data-key="221" data-note="5Gs"></span>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="220" data-note="5A"></span>
+        <span class="black-key key-key" data-key="13" data-note="5As"></span>
+    </li>
+    <li class="key">
+        <span class="white-key key-key" data-key="37" data-note="5B"></span>
+    </li>
+    <li class="wlink"><a href="https://mczak.com/code/piano/" target="_blank">Piano HTML</a></li>
+</ul>
 
 <div class="keyboard">
     <div class="key" data-note="C4">C</div>
@@ -93,7 +165,7 @@
 
 <script>
     $(document).ready(function () {
-        // Crear un sintetizador con oscilador de sierra y envolvente ADSR
+        // Crear un sintetizador con oscilador y envolvente ADSR
         const synth = new Tone.Synth({
             oscillator: {
                 type: "sawtooth"
@@ -109,16 +181,21 @@
         // Crear un filtro conectado al ADSR
         const filter = new Tone.Filter({
             type: "lowpass",
-            rolloff : -24 ,
             frequency: 1000,
             Q: 1
         });
 
         // Crear un módulo de distorsión
-        const distortion = new Tone.Distortion(0.5);
+        const distortion = new Tone.Distortion(0.0);
 
-        // Conectar el sintetizador al filtro, luego a la distorsión y finalmente al destino
-        synth.chain(filter, distortion, Tone.Destination);
+        // Crear 4 canales de salida
+        const channel1 = new Tone.Channel().toDestination();
+        const channel2 = new Tone.Channel().toDestination();
+        const channel3 = new Tone.Channel().toDestination();
+        const channel4 = new Tone.Channel().toDestination();
+
+        // Ruta: sintetizador -> filtro -> distorsión -> canal 1 -> master
+        synth.chain(distortion, filter, channel1);
 
         // Actualizar parámetros ADSR en tiempo real
         $('.adsr-controls input').on('input', function () {
@@ -150,14 +227,21 @@
             filter.Q.value = resonance;
         });
 
+        // Cambiar el tipo de oscilador en tiempo real
+        $('#oscillator-type').on('change', function () {
+            const type = $(this).val();
+            synth.oscillator.type = type;
+        });
+
         // Manejar el clic en las teclas
-        $('.key').on('mousedown', function () {
+        $('.key-key').on('mousedown', function () {
             const note = $(this).data('note'); // Obtener la nota de la tecla
             synth.triggerAttack(note); // Reproducir la nota
+            console.log(note);
         });
 
         // Detener el sonido al soltar el mouse
-        $('.key').on('mouseup', function () {
+        $('.key-key').on('mouseup', function () {
             synth.triggerRelease(); // Detener la nota
         });
     });
