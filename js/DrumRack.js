@@ -120,7 +120,7 @@ $(document).ready(function () {
             // Crear estructura de controles con jQuery (<script>$('.pan-slider').fancyknob();</script>)
             const sampleDiv = $(`
                     <div class="sample-controls">
-                        <div class="container">
+                        <div class="fader-container">
                             <div class="slider">
                                 <input class="volume-slider" type="range" orient="vertical" min="-96" max="6" value="0">
                                 <div class="vca">

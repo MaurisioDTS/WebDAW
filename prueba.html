@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sintetizador Simple</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .keyboard {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .key {
+            width: 60px;
+            height: 150px;
+            margin: 5px;
+            border: 1px solid #000;
+            border-radius: 5px;
+            background-color: white;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        .key:active {
+            background-color: #ffd700;
+        }
+        .adsr-controls, .distortion-controls {
+            margin-top: 20px;
+        }
+        .adsr-controls label, .distortion-controls label {
+            margin-right: 10px;
+        }
+        .adsr-controls input, .distortion-controls input {
+            margin-right: 20px;
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+<h1>Synth</h1>
+<p>haz clic</p>
+
+
+<div class="adsr-controls">
+    <label for="attack">Attack:</label>
+    <input type="number" id="attack" step="0.1" min="0" max="5" value="0.5">
+
+    <label for="decay">Decay:</label>
+    <input type="number" id="decay" step="0.1" min="0" max="5" value="0.5">
+
+    <label for="sustain">Sustain:</label>
+    <input type="number" id="sustain" step="0.1" min="0" max="1" value="0.5">
+
+    <label for="release">Release:</label>
+    <input type="number" id="release" step="0.1" min="0" max="5" value="0.5">
+</div>
+
+<div class="distortion-controls">
+    <h3>Distorsión</h3>
+    <label for="distortion">Amount:</label>
+    <input type="number" id="distortion" step="0.1" min="0" max="1" value="0.5">
+</div>
+
+<div class="filter-controls">
+    <h3>Filtro</h3>
+    <label for="filter-frequency">Frecuencia:</label>
+    <input type="number" id="filter-frequency" step="100" min="100" max="10000" value="1000">
+
+    <label for="filter-resonance">Resonancia:</label>
+    <input type="number" id="filter-resonance" step="0.1" min="0" max="10" value="1">
+</div>
+
+
+<div class="keyboard">
+    <div class="key" data-note="C4">C</div>
+    <div class="key" data-note="D4">D</div>
+    <div class="key" data-note="E4">E</div>
+    <div class="key" data-note="F4">F</div>
+    <div class="key" data-note="G4">G</div>
+    <div class="key" data-note="A4">A</div>
+    <div class="key" data-note="B4">B</div>
+    <div class="key" data-note="C5">C</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Crear un sintetizador con oscilador de sierra y envolvente ADSR
+        const synth = new Tone.Synth({
+            oscillator: {
+                type: "sawtooth"
+            },
+            envelope: {
+                attack: 0.5,
+                decay: 0.5,
+                sustain: 0.5,
+                release: 0.5
+            }
+        });
+
+        // Crear un filtro conectado al ADSR
+        const filter = new Tone.Filter({
+            type: "lowpass",
+            rolloff : -24 ,
+            frequency: 1000,
+            Q: 1
+        });
+
+        // Crear un módulo de distorsión
+        const distortion = new Tone.Distortion(0.5);
+
+        // Conectar el sintetizador al filtro, luego a la distorsión y finalmente al destino
+        synth.chain(filter, distortion, Tone.Destination);
+
+        // Actualizar parámetros ADSR en tiempo real
+        $('.adsr-controls input').on('input', function () {
+            const attack = parseFloat($('#attack').val());
+            const decay = parseFloat($('#decay').val());
+            const sustain = parseFloat($('#sustain').val());
+            const release = parseFloat($('#release').val());
+
+            synth.envelope.attack = attack;
+            synth.envelope.decay = decay;
+            synth.envelope.sustain = sustain;
+            synth.envelope.release = release;
+        });
+
+        // Actualizar la cantidad de distorsión en tiempo real
+        $('#distortion').on('input', function () {
+            const amount = parseFloat($(this).val());
+            distortion.distortion = amount;
+        });
+
+        // Actualizar parámetros del filtro en tiempo real
+        $('#filter-frequency').on('input', function () {
+            const frequency = parseFloat($(this).val());
+            filter.frequency.value = frequency;
+        });
+
+        $('#filter-resonance').on('input', function () {
+            const resonance = parseFloat($(this).val());
+            filter.Q.value = resonance;
+        });
+
+        // Manejar el clic en las teclas
+        $('.key').on('mousedown', function () {
+            const note = $(this).data('note'); // Obtener la nota de la tecla
+            synth.triggerAttack(note); // Reproducir la nota
+        });
+
+        // Detener el sonido al soltar el mouse
+        $('.key').on('mouseup', function () {
+            synth.triggerRelease(); // Detener la nota
+        });
+    });
+</script>
+</body>
+</html>
