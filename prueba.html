@@ -6,47 +6,6 @@
     <title>Sintetizador Simple</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
-        .keyboard {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-        .key {
-            width: 60px;
-            height: 150px;
-            margin: 5px;
-            border: 1px solid #000;
-            border-radius: 5px;
-            background-color: white;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-        }
-        .key:active {
-            background-color: #ffd700;
-        }
-        .adsr-controls, .distortion-controls, .filter-controls, .oscillator-controls {
-            margin-top: 20px;
-        }
-        .adsr-controls label, .distortion-controls label, .filter-controls label, .oscillator-controls label {
-            margin-right: 10px;
-        }
-        .adsr-controls input, .distortion-controls input, .filter-controls input, .oscillator-controls select {
-            margin-right: 20px;
-            width: 60px;
-        }
-        .oscillator-controls select {
-            width: auto;
-        }
-    </style>
 
     <link type="text/css" rel="stylesheet" href="https://mczak.com/code/piano/assets/css/style.css">
 </head>
@@ -152,7 +111,7 @@
     <li class="wlink"><a href="https://mczak.com/code/piano/" target="_blank">Piano HTML</a></li>
 </ul>
 
-<div class="keyboard">
+<!--div class="keyboard">
     <div class="key" data-note="C4">C</div>
     <div class="key" data-note="D4">D</div>
     <div class="key" data-note="E4">E</div>
@@ -161,90 +120,8 @@
     <div class="key" data-note="A4">A</div>
     <div class="key" data-note="B4">B</div>
     <div class="key" data-note="C5">C</div>
-</div>
+</div-->
 
-<script>
-    $(document).ready(function () {
-        // Crear un sintetizador con oscilador y envolvente ADSR
-        const synth = new Tone.Synth({
-            oscillator: {
-                type: "sawtooth"
-            },
-            envelope: {
-                attack: 0.5,
-                decay: 0.5,
-                sustain: 0.5,
-                release: 0.5
-            }
-        });
-
-        // Crear un filtro conectado al ADSR
-        const filter = new Tone.Filter({
-            type: "lowpass",
-            frequency: 1000,
-            Q: 1
-        });
-
-        // Crear un módulo de distorsión
-        const distortion = new Tone.Distortion(0.0);
-
-        // Crear 4 canales de salida
-        const channel1 = new Tone.Channel().toDestination();
-        const channel2 = new Tone.Channel().toDestination();
-        const channel3 = new Tone.Channel().toDestination();
-        const channel4 = new Tone.Channel().toDestination();
-
-        // Ruta: sintetizador -> filtro -> distorsión -> canal 1 -> master
-        synth.chain(distortion, filter, channel1);
-
-        // Actualizar parámetros ADSR en tiempo real
-        $('.adsr-controls input').on('input', function () {
-            const attack = parseFloat($('#attack').val());
-            const decay = parseFloat($('#decay').val());
-            const sustain = parseFloat($('#sustain').val());
-            const release = parseFloat($('#release').val());
-
-            synth.envelope.attack = attack;
-            synth.envelope.decay = decay;
-            synth.envelope.sustain = sustain;
-            synth.envelope.release = release;
-        });
-
-        // Actualizar la cantidad de distorsión en tiempo real
-        $('#distortion').on('input', function () {
-            const amount = parseFloat($(this).val());
-            distortion.distortion = amount;
-        });
-
-        // Actualizar parámetros del filtro en tiempo real
-        $('#filter-frequency').on('input', function () {
-            const frequency = parseFloat($(this).val());
-            filter.frequency.value = frequency;
-        });
-
-        $('#filter-resonance').on('input', function () {
-            const resonance = parseFloat($(this).val());
-            filter.Q.value = resonance;
-        });
-
-        // Cambiar el tipo de oscilador en tiempo real
-        $('#oscillator-type').on('change', function () {
-            const type = $(this).val();
-            synth.oscillator.type = type;
-        });
-
-        // Manejar el clic en las teclas
-        $('.key-key').on('mousedown', function () {
-            const note = $(this).data('note'); // Obtener la nota de la tecla
-            synth.triggerAttack(note); // Reproducir la nota
-            console.log(note);
-        });
-
-        // Detener el sonido al soltar el mouse
-        $('.key-key').on('mouseup', function () {
-            synth.triggerRelease(); // Detener la nota
-        });
-    });
-</script>
+<script src="js/synth.js"></script>
 </body>
 </html>

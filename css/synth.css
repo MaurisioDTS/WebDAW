@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+.keyboard {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.key {
+    width: 60px;
+    height: 150px;
+    margin: 5px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.key:active {
+    background-color: #ffd700;
+}
+.adsr-controls, .distortion-controls, .filter-controls, .oscillator-controls {
+    margin-top: 20px;
+}
+.adsr-controls label, .distortion-controls label, .filter-controls label, .oscillator-controls label {
+    margin-right: 10px;
+}
+.adsr-controls input, .distortion-controls input, .filter-controls input, .oscillator-controls select {
+    margin-right: 20px;
+    width: 60px;
+}
+.oscillator-controls select {
+    width: auto;
+}
