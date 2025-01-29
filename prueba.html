@@ -1,127 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sintetizador Simple</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sintetizador Simple</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="https://mczak.com/code/piano/assets/css/style.css">
-</head>
-<body>
-<h1>Synth</h1>
-<p>haz clic</p>
+        <link type="text/css" rel="stylesheet" href="https://mczak.com/code/piano/assets/css/style.css">
+
+        <link href="./css/synth.css" rel="stylesheet">
+    </head>
+    <body>
+    <h1>Synth</h1>
+    <p>haz clic</p>
 
 
-<div class="adsr-controls">
-    <label for="attack">Attack:</label>
-    <input type="number" id="attack" step="0.1" min="0" max="5" value="0.5">
+    <div class="module adsr-controls">
+        <label for="attack">A</label>
+        <input type="range" id="attack" step="0.1" min="0" max="5" value="0.5" orient="vertical">
 
-    <label for="decay">Decay:</label>
-    <input type="number" id="decay" step="0.1" min="0" max="5" value="0.5">
+        <label for="decay">D</label>
+        <input type="range" id="decay" step="0.1" min="0" max="5" value="0.5" orient="vertical">
 
-    <label for="sustain">Sustain:</label>
-    <input type="number" id="sustain" step="0.1" min="0" max="1" value="0.5">
+        <label for="sustain">S</label>
+        <input type="range" id="sustain" step="0.1" min="0" max="1" value="0.5" orient="vertical">
 
-    <label for="release">Release:</label>
-    <input type="number" id="release" step="0.1" min="0" max="5" value="0.5">
-</div>
+        <label for="release">R</label>
+        <input type="range" id="release" step="0.1" min="0" max="5" value="0.5" orient="vertical">
+    </div>
 
-<div class="distortion-controls">
-    <h3>Distorsión</h3>
-    <label for="distortion">Amount:</label>
-    <input type="number" id="distortion" step="0.1" min="0" max="1" value="0.5">
-</div>
+    <div class="module distortion-controls">
+        <h3>Distorsión</h3>
+        <input type="range" id="distortion" step="0.1" min="0" max="10" value="0">
+    </div>
 
-<div class="filter-controls">
-    <h3>Filtro</h3>
-    <label for="filter-frequency">Frecuencia:</label>
-    <input type="number" id="filter-frequency" step="100" min="100" max="10000" value="1000">
+    <div class="module filter-controls">
+        <h3>Filtro</h3>
+        <div>
+            <label for="filter-frequency">Hz</label>
+            <input type="range" id="filter-frequency" step="100" min="100" max="10000" value="1000">
+            <span id="filter-frequency-display">1000 Hz</span>
+        </div>
+        <label for="filter-resonance">Q</label>
+        <input type="range" id="filter-resonance" step="0.1" min="0" max="10" value="1">
+    </div>
 
-    <label for="filter-resonance">Resonancia:</label>
-    <input type="number" id="filter-resonance" step="0.1" min="0" max="10" value="1">
-</div>
+    <div class="module oscillator-controls">
+        <h3>Oscilador</h3>
+        <label for="oscillator-type">Tipo:</label>
+        <select id="oscillator-type">
+            <option value="sawtooth">Saw</option>
+            <option value="square">Square</option>
+            <option value="pwm">Triangle (PWM)</option>
+            <option value="fatsawtooth">Super Saw</option>
+            <option value="amtriangle">Triangle Mod</option>
+        </select>
+    </div>
 
-<div class="oscillator-controls">
-    <h3>Oscilador</h3>
-    <label for="oscillator-type">Tipo:</label>
-    <select id="oscillator-type">
-        <option value="sawtooth">Saw</option>
-        <option value="square">Square</option>
-        <option value="pwm">Triangle (PWM)</option>
-        <option value="fatsawtooth">Super Saw</option>
-        <option value="amtriangle">Triangle Mod</option>
-    </select>
-</div>
+    <ul class="piano">
+        <li class="key">
+            <div class="white-key key-key" data-key="20" data-note="C4"></div>
+            <div class="black-key key-key" data-key="81" data-note="C#4"></div>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="65" data-note="D4"></span>
+            <span class="black-key key-key" data-key="87" data-note="D#4"></span>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="83" data-note="E4"></span>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="68" data-note="F4"></span>
+            <span class="black-key key-key" data-key="82" data-note="F#4"></span>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="70" data-note="G4"></span>
+            <span class="black-key key-key" data-key="84" data-note="G#4"></span>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="71" data-note="A4"></span>
+            <span class="black-key key-key" data-key="89" data-note="A#4"></span>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="72" data-note="B4"></span>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="74" data-note="5C"></span>
+            <span class="black-key key-key" data-key="73" data-note="5Cs"></span>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="75" data-note="5D"></span>
+            <span class="black-key key-key" data-key="79" data-note="5Ds"></span>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="76" data-note="5E"></span>
+        </li>
+        <li class="key">
+            <div class="white-key key-key" data-key="186" data-note="5F"></div>
+            <div class="black-key" data-key="219" data-note="5Fs"></div>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="222" data-note="5G"></span>
+            <span class="black-key" data-key="221" data-note="5Gs"></span>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="220" data-note="5A"></span>
+            <span class="black-key key-key" data-key="13" data-note="5As"></span>
+        </li>
+        <li class="key">
+            <span class="white-key key-key" data-key="37" data-note="5B"></span>
+        </li>
+        <li class="wlink"><a href="https://mczak.com/code/piano/" target="_blank">Piano HTML</a></li>
+    </ul>
 
-<ul class="piano">
-    <li class="key">
-        <div class="white-key key-key" data-key="20" data-note="C4"></div>
-        <div class="black-key key-key" data-key="81" data-note="C#4"></div>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="65" data-note="D4"></span>
-        <span class="black-key key-key" data-key="87" data-note="D#4"></span>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="83" data-note="E4"></span>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="68" data-note="F4"></span>
-        <span class="black-key key-key" data-key="82" data-note="F#4"></span>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="70" data-note="G4"></span>
-        <span class="black-key key-key" data-key="84" data-note="G#4"></span>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="71" data-note="A4"></span>
-        <span class="black-key key-key" data-key="89" data-note="A#4"></span>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="72" data-note="B4"></span>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="74" data-note="5C"></span>
-        <span class="black-key key-key" data-key="73" data-note="5Cs"></span>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="75" data-note="5D"></span>
-        <span class="black-key key-key" data-key="79" data-note="5Ds"></span>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="76" data-note="5E"></span>
-    </li>
-    <li class="key">
-        <div class="white-key key-key" data-key="186" data-note="5F"></div>
-        <div class="black-key" data-key="219" data-note="5Fs"></div>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="222" data-note="5G"></span>
-        <span class="black-key" data-key="221" data-note="5Gs"></span>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="220" data-note="5A"></span>
-        <span class="black-key key-key" data-key="13" data-note="5As"></span>
-    </li>
-    <li class="key">
-        <span class="white-key key-key" data-key="37" data-note="5B"></span>
-    </li>
-    <li class="wlink"><a href="https://mczak.com/code/piano/" target="_blank">Piano HTML</a></li>
-</ul>
+    <!--div class="keyboard">
+        <div class="key" data-note="C4">C</div>
+        <div class="key" data-note="D4">D</div>
+        <div class="key" data-note="E4">E</div>
+        <div class="key" data-note="F4">F</div>
+        <div class="key" data-note="G4">G</div>
+        <div class="key" data-note="A4">A</div>
+        <div class="key" data-note="B4">B</div>
+        <div class="key" data-note="C5">C</div>
+    </div-->
 
-<!--div class="keyboard">
-    <div class="key" data-note="C4">C</div>
-    <div class="key" data-note="D4">D</div>
-    <div class="key" data-note="E4">E</div>
-    <div class="key" data-note="F4">F</div>
-    <div class="key" data-note="G4">G</div>
-    <div class="key" data-note="A4">A</div>
-    <div class="key" data-note="B4">B</div>
-    <div class="key" data-note="C5">C</div>
-</div-->
-
-<script src="js/synth.js"></script>
-</body>
+    <script src="js/synth.js"></script>
+    </body>
 </html>

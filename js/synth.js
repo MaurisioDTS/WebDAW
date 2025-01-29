@@ -73,4 +73,10 @@ $(document).ready(function () {
     $('.key-key').on('mouseup', function () {
         synth.triggerRelease();
     });
+
+    $('#filter-frequency').on('input', function () {
+        const frequency = parseFloat($(this).val());
+        filter.frequency.value = frequency;
+        $('#filter-frequency-display').text(frequency + ' Hz');
+    });
 });
