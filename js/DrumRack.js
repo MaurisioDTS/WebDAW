@@ -101,7 +101,10 @@ $(document).ready(function () {
         const sampleControllers = [];
         let nombrecito = "";
 
-        $('.tap-tempo').tapTempo();
+        $('#boton-tap').tapTempo({
+            displaySelector: '#display-tap',
+            maxInterval: 2000,
+        });
         aparecerControles();
         // Generar controles para cada sample
         noteLabels.forEach((path, index) => {
