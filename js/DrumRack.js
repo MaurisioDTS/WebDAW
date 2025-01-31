@@ -101,6 +101,7 @@ $(document).ready(function () {
         const sampleControllers = [];
         let nombrecito = "";
 
+        $('.tap-tempo').tapTempo();
         aparecerControles();
         // Generar controles para cada sample
         noteLabels.forEach((path, index) => {
