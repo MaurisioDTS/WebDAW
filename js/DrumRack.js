@@ -176,17 +176,15 @@ async function crearTodo(noteLabels) {
         });
         // inversión de fase
         sampleDiv.find('.phase-btn').click(function () {
+            const controller = sampleControllers[index];
+            controller.muteGain.gain.value = controller.muteGain.gain.value*-1;
 
-
-            player.connect(inverter);
-            inverter;
-
-            if (vol > 0) {
+            if (controller.muteGain.gain.value < 0) {
                 $(this).addClass("phase");
             } else {
                 $(this).removeClass("phase");
             }
-            console.log("phase inverted." + inverter);
+            console.log("phase inverted: " + controller.muteGain.gain.value);
         });
 
         // Botón Solo
