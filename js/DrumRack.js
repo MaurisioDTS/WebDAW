@@ -38,7 +38,7 @@ async function crearTodo(noteLabels) {
 
     //      labels ===========0
     noteLabels.forEach(note => {
-        $notes.append(`<div value="` + noteLabels.indexOf(note) + `" class="note-label">${note}</div>`);
+        $notes.append(`<div class="tag" value="` + noteLabels.indexOf(note) + `" class="note-label">${note}</div>`);
     });
 
     //      creamos la cuadricula   ===========0

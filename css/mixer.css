@@ -13,11 +13,6 @@
 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
-
-.grid-container{
-    display: block;
-    position: relative;
-}
 .sample-controls{
     background-color: #333;
     //border-radius: 10px;
@@ -41,6 +36,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     margin-top: 10px;
     text-align: center;
+
+    z-index: 10;
 }
 .fader-container {
     background-color: #474747;
