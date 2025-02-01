@@ -45,7 +45,7 @@ async function crearTodo(noteLabels) {
     const cells = [];
     for (let row = 0; row < noteLabels.length; row++) {
         const rowCells = [];
-        for (let col = 0; col < 16; col++) {
+        for (let col = 0; col < 32; col++) {
             const cell = document.createElement('div');
             cell.setAttribute('data-value', row);
             cell.classList.add('cell');
@@ -88,7 +88,7 @@ async function crearTodo(noteLabels) {
             displaySelector: '#display-tap',
             maxInterval: 2000,
             onTempoCalculated: function (newBPM) {
-                temp = (60 / newBPM) * 1000;
+                temp = (30 / newBPM) * 1000;
                 intervalTime = temp.toFixed(0);
                 console.log('newBPM: ' + intervalTime);
             }
@@ -259,7 +259,7 @@ async function crearTodo(noteLabels) {
             });
 
             // Avanzar a la siguiente columna
-            currentColumn = (currentColumn + 1) % 16;
+            currentColumn = (currentColumn + 1) % 32;
         }, intervalTime);
     };
 

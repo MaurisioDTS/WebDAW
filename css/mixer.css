@@ -10,6 +10,8 @@
 
     border-top-left-radius:  10px;
     border-top-right-radius:  10px;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .grid-container{
@@ -79,6 +81,7 @@
     width: 129px;
 }
 .ssl-button {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: 0.5s;
     display: inline-block;
     width: 50px; /* Ajusta según el tamaño deseado */
@@ -86,14 +89,15 @@
     background-color: #9f9f9f; /* Color base del botón */
     border: none;
     border-radius: 5px;
-    box-shadow: inset -2px -2px 5px #878787, inset 2px 2px 5px #737373, 0 0 5px rgba(34, 34, 34, 0.3);
+
     font-family: Arial, sans-serif;
     font-size: 14px;
     color: #333;
     text-align: center;
-    line-height: 45px; /* Centrar el texto */
     text-transform: uppercase;
     cursor: pointer;
+
+
 }
 .button-container {
     padding: 10px;
