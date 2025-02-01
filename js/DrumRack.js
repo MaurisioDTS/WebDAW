@@ -25,21 +25,20 @@
         currentColumn = (currentColumn + 1) % 16;
     }, intervalTime);
 };*/
+async function crearTodo(noteLabels) {
 
-// =====================================================0
-//      aqui es donde surge la magia.
-
-$(document).ready(function () {
     //  =====================================================0
     //      VARIABLES PADALUSTRAS
-
-    const $grid = $('#grid');
     const $notes = $('#notes');
+    let intervalId;
+    let currentColumn = 0;
+    let bpm = 120 * 2; // beats per minute
+    let intervalTime = (60 / bpm) * 1000; // milisegundos entre pasos
+    //const noteLabels = ["crash", "shaker", "cowbell", "ride", "hihat", "rimshot", "snare", "kick"];
 
     //      labels ===========0
-    const noteLabels = ["crash", "shaker", "cowbell", "ride", "hihat", "rimshot", "snare", "kick"];
     noteLabels.forEach(note => {
-        $notes.append(`<div value="`+noteLabels.indexOf(note)+`" class="note-label">${note}</div>`);
+        $notes.append(`<div value="` + noteLabels.indexOf(note) + `" class="note-label">${note}</div>`);
     });
 
     //      creamos la cuadricula   ===========0
@@ -69,12 +68,6 @@ $(document).ready(function () {
         cells.push(rowCells);
     }
 
-    let intervalId;
-    let currentColumn = 0;
-    const bpm = 120*2; // Beats per minute
-    const intervalTime = (60 / bpm) * 1000; // Milisegundos entre pasos
-
-    //const cells = [];
 
     //  =====================================================0
     //      FUNCIONES
@@ -85,44 +78,48 @@ $(document).ready(function () {
                     <button class="ssl-button" id="stop">Stop</button>
                     <button class="ssl-button" id="rec">Rec</button>
                     <br>
-                    <button class="ssl-button" id="play-all">Play</button>
-                    <button class="ssl-button" id="stop-all">stop</button>
+                    <div class="dondeEstaraElMetronomo"></div>
                 `);
         $('.controls').append(temp);
-    }
 
-
-
-    //  ====================================================
-    //      se crea la mixer
-    $('#start').click(async () => {
-        await Tone.start();
-        console.log("comienza! esta noche oscura te tortura la locura");
-        const sampleControllers = [];
-        let nombrecito = "";
+        $('.dondeEstaraElMetronomo').tempoDisplay();
 
         $('#boton-tap').tapTempo({
             displaySelector: '#display-tap',
             maxInterval: 2000,
+            onTempoCalculated: function (newBPM) {
+                temp = (60 / newBPM) * 1000;
+                intervalTime = temp.toFixed(0);
+                console.log('newBPM: ' + intervalTime);
+            }
         });
-        aparecerControles();
-        // Generar controles para cada sample
-        noteLabels.forEach((path, index) => {
-            // Crear elementos de Tone.js
-            var player = new Tone.Player({
-                "url": "res/aud/drums/" + path + ".wav",
-            });
-            nombrecito = path;
-            const panner = new Tone.Panner(0).toDestination();
-            const volume = new Tone.Volume(0).connect(panner);
-            const muteGain = new Tone.Gain(1).connect(volume); // Control de mute
-            player.connect(muteGain);
+    }
 
-            // Almacenar los elementos en un objeto
-            sampleControllers.push({player, panner, volume, muteGain, isMuted: false, isSoloed: false});
+    //  ====================================================
+    //      se crea la mixer
+    await Tone.start();
+    console.log("comienza! esta noche oscura te tortura la locura");
+    const sampleControllers = [];
+    let nombrecito = "";
 
-            // Crear estructura de controles con jQuery (<script>$('.pan-slider').fancyknob();</script>)
-            const sampleDiv = $(`
+    aparecerControles();
+    // Generar controles para cada sample
+    noteLabels.forEach((path, index) => {
+        // Crear elementos de Tone.js
+        var player = new Tone.Player({
+            "url": "res/aud/drums/" + path + ".wav",
+        });
+        nombrecito = path;
+        const panner = new Tone.Panner(0).toDestination();
+        const volume = new Tone.Volume(0).connect(panner);
+        const muteGain = new Tone.Gain(1).connect(volume); // Control de mute
+        player.connect(muteGain);
+
+        // Almacenar los elementos en un objeto
+        sampleControllers.push({player, panner, volume, muteGain, isMuted: false, isSoloed: false});
+
+        // Crear estructura de controles con jQuery (<script>$('.pan-slider').fancyknob();</script>)
+        const sampleDiv = $(`
                     <div class="sample-controls">
                         <div class="fader-container">
                             <div class="slider">
@@ -163,134 +160,145 @@ $(document).ready(function () {
                     </div>
                 `);
 
-            // Botón Play
-            sampleDiv.find('.play-btn').click(() => player.start());
+        // Botón Play
+        sampleDiv.find('.play-btn').click(() => player.start());
 
-            // Botón Mute
-            sampleDiv.find('.mute-btn').click(function () {
-                const controller = sampleControllers[index];
-                controller.isMuted = !controller.isMuted;
-                controller.muteGain.gain.value = controller.isMuted ? 0 : 1;
-                if (controller.isMuted) {
-                    $(this).addClass("mute");
-                } else {
-                    $(this).removeClass("mute");
-                }
-            });
-            // inversión de fase
-            sampleDiv.find('.phase-btn').click(function () {
-
-
-                player.connect(inverter);
-                inverter;
-
-                if (vol > 0) {
-                    $(this).addClass("phase");
-                } else {
-                    $(this).removeClass("phase");
-                }
-                console.log("phase inverted." + inverter);
-            });
-
-            // Botón Solo
-            sampleDiv.find('.solo-btn').click(function () {
-                const controller = sampleControllers[index];
-                controller.isSoloed = !controller.isSoloed;
-
-                // Ajustar solo/mute para todos los samples
-                sampleControllers.forEach((c, i) => {
-                    c.muteGain.gain.value = controller.isSoloed && i !== index ? 0 : (c.isMuted ? 0 : 1);
-
-                    if (controller.isSoloed) {
-                        $(this).addClass("solo");
-                    } else {
-                        $(this).removeClass("solo");
-                    }
-                });
-            });
-
-            // Slider de Volumen
-            sampleDiv.find('.volume-slider').on('input', function () {
-                volume.volume.value = $(this).val();
-                console.log(player.url + "gain:" + volume.volume.value);
-            });
-
-            // Slider de Panorama
-            sampleDiv.find('.pan-slider').on('input', function () {
-                panner.pan.value = $(this).val();
-                console.log("pan:" + volume.volume.value);
-            });
-
-            $('#play-all').click(() => {
-                sampleControllers.forEach(({player}) => {
-                    player.start();
-                });
-            });
-
-            $('#stop-all').click(() => {
-                sampleControllers.forEach(({player}) => {
-                    player.stop();
-                });
-            });
-
-            // Añadir los controles al contenedor
-            $('#controls').append(sampleDiv);
-
+        // Botón Mute
+        sampleDiv.find('.mute-btn').click(function () {
+            const controller = sampleControllers[index];
+            controller.isMuted = !controller.isMuted;
+            controller.muteGain.gain.value = controller.isMuted ? 0 : 1;
+            if (controller.isMuted) {
+                $(this).addClass("mute");
+            } else {
+                $(this).removeClass("mute");
+            }
         });
-        // =====================
-        //  FIN DE LA GENERACIÓN
-        $("#start").hide();
+        // inversión de fase
+        sampleDiv.find('.phase-btn').click(function () {
 
-        const playSound = (cell) => {
-            console.log(cell);
-            sampleControllers[cell.getAttribute('data-value')].player.start();
-        };
 
-        const stopSequence = () => {
-            clearInterval(intervalId);
-            cells.forEach(row => row.forEach(cell => cell.classList.remove('active-column')));
-            currentColumn = 0;
-        };
+            player.connect(inverter);
+            inverter;
 
-        const playSequence = () => {
-            console.log("se playea la sequence")
-            stopSequence();
-            intervalId = setInterval(() => {
-                // Resetear las columnas anteriores
-                if (currentColumn > 0) {
-                    cells.forEach(row => row[currentColumn - 1].classList.remove('active-column'));
+            if (vol > 0) {
+                $(this).addClass("phase");
+            } else {
+                $(this).removeClass("phase");
+            }
+            console.log("phase inverted." + inverter);
+        });
+
+        // Botón Solo
+        sampleDiv.find('.solo-btn').click(function () {
+            const controller = sampleControllers[index];
+            controller.isSoloed = !controller.isSoloed;
+
+            // Ajustar solo/mute para todos los samples
+            sampleControllers.forEach((c, i) => {
+                c.muteGain.gain.value = controller.isSoloed && i !== index ? 0 : (c.isMuted ? 0 : 1);
+
+                if (controller.isSoloed) {
+                    $(this).addClass("solo");
                 } else {
-                    cells.forEach(row => row[15].classList.remove('active-column'));
+                    $(this).removeClass("solo");
                 }
+            });
+        });
 
-                // Marcar la columna actual
-                cells.forEach(row => row[currentColumn].classList.add('active-column'));
+        // Slider de Volumen
+        sampleDiv.find('.volume-slider').on('input', function () {
+            volume.volume.value = $(this).val();
+            console.log(player.url + "gain:" + volume.volume.value);
+        });
 
-                // Reproducir notas activas en la columna actual
-                cells.forEach((row, rowIndex) => {
-                    if (row[currentColumn].classList.contains('active')) {
-                        playSound(row[currentColumn]);
-                    }
-                });
+        // Slider de Panorama
+        sampleDiv.find('.pan-slider').on('input', function () {
+            panner.pan.value = $(this).val();
+            console.log("pan:" + volume.volume.value);
+        });
 
-                // Avanzar a la siguiente columna
-                currentColumn = (currentColumn + 1) % 16;
-            }, intervalTime);
-        };
+        $('#play-all').click(() => {
+            sampleControllers.forEach(({player}) => {
+                player.start();
+            });
+        });
 
-        // Manejar botones
-        $('#play').click(playSequence);
+        $('#stop-all').click(() => {
+            sampleControllers.forEach(({player}) => {
+                player.stop();
+            });
+        });
 
-        $('#stop').click(stopSequence);
+        // Añadir los controles al contenedor
+        $('#controls').append(sampleDiv);
+
     });
+    // =====================
+    //  FIN DE LA GENERACIÓN
+    $("#start").hide();
 
-    /** Crear una barra de progreso
-    const progressBar = document.createElement('div');
-    progressBar.style.position = 'absolute';
-    progressBar.style.width = '40px';
-    progressBar.style.height = '100%';
-    progressBar.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-    progressBar.style.transition = `transform ${intervalTime}ms linear`;
-    progressBar.style.pointerEvents = 'none';
-    grid.parentElement.appendChild(progressBar);  //Agregar la barra al contenedor del grid **/
+    const playSound = (cell) => {
+        console.log(noteLabels[cell.getAttribute("data-value")]);
+        sampleControllers[cell.getAttribute('data-value')].player.start();
+    };
+
+    const stopSequence = () => {
+        clearInterval(intervalId);
+        cells.forEach(row => row.forEach(cell => cell.classList.remove('active-column')));
+        currentColumn = 0;
+    };
+
+    const playSequence = () => {
+        console.log("se playea la sequence a "+intervalTime+"bpm");
+        stopSequence();
+        intervalId = setInterval(() => {
+            // Resetear las columnas anteriores
+            if (currentColumn > 0) {
+                cells.forEach(row => row[currentColumn - 1].classList.remove('active-column'));
+            } else {
+                cells.forEach(row => row[15].classList.remove('active-column'));
+            }
+
+            // Marcar la columna actual
+            cells.forEach(row => row[currentColumn].classList.add('active-column'));
+
+            // Reproducir notas activas en la columna actual
+            cells.forEach((row, rowIndex) => {
+                if (row[currentColumn].classList.contains('active')) {
+                    playSound(row[currentColumn]);
+                }
+            });
+
+            // Avanzar a la siguiente columna
+            currentColumn = (currentColumn + 1) % 16;
+        }, intervalTime);
+    };
+
+    // Manejar botones
+    $('#play').click(playSequence);
+
+    $('#stop').click(stopSequence);
+}
+
+// =====================================================0
+//      aqui es donde surge la magia.
+
+$(document).ready(function () {
+
+    $("#start").click(function () {
+        $.ajax({
+            url: '../res/aud/drums/drums.txt',
+            type: 'GET',
+            success: function(data) {
+                noteLabels = data.split(/\s+/);
+                crearTodo(noteLabels);
+            },
+            error: function(xhr, status, error) {
+                alert("no se pudo crear, revisa la consola")
+                console.error('error fatal: ', error);
+            }
+        });
+    })
+
 });

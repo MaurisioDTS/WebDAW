@@ -3,6 +3,7 @@
         const defaults = {
             displaySelector: null, 
             maxInterval: 2000,
+            onTempoCalculated: null // callback
         };
         
         const settings = $.extend({}, defaults, options);
@@ -27,9 +28,14 @@
 
                     // print en pantalla
                     if (settings.displaySelector) {
-                        $(settings.displaySelector).text( (frequency*60).toFixed(0) + " bpm");
+                        $(settings.displaySelector).text( (frequency*60).toFixed(0));
                     } else {
-                        console.log((frequency*60).toFixed(0) + " bpm");
+                        console.log((frequency*60).toPrecision(3) + " bpm");
+                    }
+
+                    // respecto al callback
+                    if (settings.onTempoCalculated) {
+                        settings.onTempoCalculated((frequency * 60)); // bpm
                     }
                 }
             });
