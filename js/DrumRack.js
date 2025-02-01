@@ -218,20 +218,8 @@ async function crearTodo(noteLabels) {
             console.log("pan:" + volume.volume.value);
         });
 
-        $('#play-all').click(() => {
-            sampleControllers.forEach(({player}) => {
-                player.start();
-            });
-        });
-
-        $('#stop-all').click(() => {
-            sampleControllers.forEach(({player}) => {
-                player.stop();
-            });
-        });
-
         // Añadir los controles al contenedor
-        $('#controls').append(sampleDiv);
+        $('.faders').append(sampleDiv);
 
     });
     // =====================
@@ -283,7 +271,6 @@ async function crearTodo(noteLabels) {
 
 // =====================================================0
 //      aqui es donde surge la magia.
-
 $(document).ready(function () {
 
     $("#start").click(function () {
@@ -299,6 +286,5 @@ $(document).ready(function () {
                 console.error('error fatal: ', error);
             }
         });
-    })
-
+    });
 });

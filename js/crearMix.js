@@ -142,7 +142,7 @@ $(document).ready(function () {
             });
 
             // Añadir los controles al contenedor
-            $('#controls').append(sampleDiv);
+            $('.faders').append(sampleDiv);
         });
         // =====================
         //  FIN DE LA GENERACIÓN

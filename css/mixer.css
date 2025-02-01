@@ -1,6 +1,15 @@
 .faders{
-    align-items: center;
-    display: block;
+    background-color: #333;
+    padding: 10px;
+
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+
+    border-top-left-radius:  10px;
+    border-top-right-radius:  10px;
 }
 
 .grid-container{
@@ -13,10 +22,21 @@
     padding: 10px;
     //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     display: inline-block;
-
-    margin: auto;
 }
 .tag{
+    background-color: black;
+    color: #ff3333;
+    font-family: 'DS-DIGITAL', Courier, monospace;
+
+    padding: 5px;
+    border-radius: 10px;
+    border: 2px solid #ff3333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow:  2px 2px 5px #872b2b, -2px -2px 5px #350d0d, 0 0 10px #9e3131;
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     margin-top: 10px;
     text-align: center;
 }
