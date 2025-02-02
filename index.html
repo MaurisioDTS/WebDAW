@@ -6,7 +6,11 @@
     <title>WebDAW</title>
 
     <!--    ESTILOS     -->
+    <link href="./css/bootstrap-reboot.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
     <link href="./css/synth.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="https://mczak.com/code/piano/assets/css/style.css">
 
     <link rel="stylesheet" href="./css/DrumRack.css"/>
     <link rel="stylesheet" href="./css/mixer.css"/>
@@ -17,67 +21,14 @@
     <script src="js/jquery.tempodisplay.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
-
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #111;
-            color: #fff;
-            margin: 0;
-            padding: 0;
-        }
-
-        .tab-container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: space-between;
-            background-color: #333;
-            border-radius: 8px 8px 0 0;
-            overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .tab {
-            flex: 1;
-            text-align: center;
-            padding: 15px;
-            cursor: pointer;
-            background-color: #444;
-            transition: background-color 0.3s ease;
-            color: #fff;
-        }
-
-        .tab:hover, .tab.active {
-            background-color: #f39c12;
-            font-weight: bold;
-        }
-
-        .content-container {
-            margin-top: 20px;
-            background-color: #222;
-            border-radius: 0 0 8px 8px;
-            padding: 20px;
-            min-height: 400px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #f39c12;
-        }
-
-    </style>
 </head>
 <body>
 
 <h1>WebDAW</h1>
+<div class="startPage">
+    <button id="startPage" class="ssl-button">Start</button>
+</div>
 
-<button id="startPage" class="ssl-button">Start</button>
 
 <div class="tab-container" style="display: none;">
     <div class="tabs">
@@ -123,7 +74,6 @@
                 error: function () { $('#drums').html('<p>error al cargar el modulo, chekea la consola.</p>'); }
             });
 
-
             document.querySelectorAll('.tab').forEach(link => {
                 link.addEventListener('click', function (event) {
                     event.preventDefault();
@@ -142,13 +92,8 @@
                     }
                 });
             });
-
-
-            $(this).remove();
+            $('.startPage').remove();
         });
-
-
-
     });
 </script>
 

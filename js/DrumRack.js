@@ -241,9 +241,9 @@ async function crearTodo(noteLabels) {
         intervalId = setInterval(() => {
             // Resetear las columnas anteriores
             if (currentColumn > 0) {
-                cells.forEach(row => row[currentColumn - 1].classList.remove('active-column'));
+                cells.forEach(row => row[currentColumn-1].classList.remove('active-column'));
             } else {
-                cells.forEach(row => row[15].classList.remove('active-column'));
+                cells.forEach(row => row[8].classList.remove('active-column'));
             }
 
             // Marcar la columna actual
@@ -257,7 +257,7 @@ async function crearTodo(noteLabels) {
             });
 
             // Avanzar a la siguiente columna
-            currentColumn = (currentColumn + 1) % 32;
+            currentColumn = (currentColumn +1) % 32;
         }, intervalTime);
     };
 

@@ -72,10 +72,11 @@
     background-color: #474747;
     border-radius: 10px;
 
-    width: 129px;
+    width: 141px;
 }
 .pan-slider{
-    width: 129px;
+    width: 120px;
+    align-self: center;
 }
 .ssl-button {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -102,8 +103,8 @@
     border-radius: 10px;
     background-color: #171717;
     display: flex;
-    flex-direction: column; /* Alinea en columna */
-    gap: 10px; /* Espacio entre los botones */
+    flex-direction: column;
+    gap: 20px;
     margin-left: 10px;
 }
 .mute {

@@ -1,84 +1,57 @@
-/* ----- AQUI EMPIEZA EL ESTILO ----- */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #1e1e1e;
-    color: white;
-    display: flex;
-    flex-direction: column;
-//justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    color: #000000;
-}
-input label{
-  margin-left: 100px;
-}
-.content{
-  padding: 5%;
+    font-family: 'Arial', sans-serif;
+    background-color: #111;
 }
 
-.options{
-  float: left;
-}
+.tab-container {
+    width: 100%;
 
-#teclado{
-  margin: auto;
-  flex-wrap: nowrap;
-  width: 80%;
-}
-
-#teclas{
-	height: 10%;
-	width: 100%;
-}
-
-img.natural{
-	
-	height: 10%;
-	width: 10%;
-}
-img.semitono{
-	height: 5%;
-	width: 5%;
-
-	object-position:top;
-}
-
-
-/* basura */
-
-.wrapper{
-  width: 800px;
-  margin: 0 auto;
-}
-section{
-  padding: 20px;
-  margin-bottom: 40px;
-  background-color: #fff;
-}
-
-.tab-buttons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-.tab-buttons button {
-    padding: 10px 20px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    background: #f9f9f9;
-}
-.tab-buttons button.active {
-    background: #007bff;
-    color: white;
-    border-color: #007bff;
-}
-.tab-content {
-    display: none; /* Ocultamos inicialmente */
+    margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ccc;
 }
-.tab-content.active {
-    display: block; /* Mostramos cuando activo */
+
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    background-color: #333;
+    border-radius: 8px 8px 0 0;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+    cursor: pointer;
+    background-color: #444;
+    transition: background-color 0.3s ease;
+    color: #fff;
+}
+
+.tab:hover, .tab.active {
+    background-color: #f39c12;
+    font-weight: bold;
+}
+
+.content-container {
+    background-color: #222;
+    border-radius: 0 0 20px 20px;
+    padding: 10px;
+    min-height: 400px;
+}
+
+h1 {
+    text-align: center;
+    color: #f39c12;
+}
+.startPage{
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #444;
 }
