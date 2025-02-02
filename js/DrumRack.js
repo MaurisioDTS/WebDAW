@@ -97,8 +97,8 @@ async function crearTodo(noteLabels) {
 
     //  ====================================================
     //      se crea la mixer
-    await Tone.start();
-    console.log("comienza! esta noche oscura te tortura la locura");
+    //await Tone.start();
+    //console.log("comienza! esta noche oscura te tortura la locura");
     const sampleControllers = [];
     let nombrecito = "";
 
@@ -115,10 +115,10 @@ async function crearTodo(noteLabels) {
         const muteGain = new Tone.Gain(1).connect(volume); // Control de mute
         player.connect(muteGain);
 
-        // Almacenar los elementos en un objeto
+        // almacenar los elementos en un objeto
         sampleControllers.push({player, panner, volume, muteGain, isMuted: false, isSoloed: false});
 
-        // Crear estructura de controles con jQuery (<script>$('.pan-slider').fancyknob();</script>)
+        // crear estructura de controles (<script>$('.pan-slider').fancyknob();</script>)
         const sampleDiv = $(`
                     <div class="sample-controls">
                         <div class="fader-container">
@@ -236,7 +236,7 @@ async function crearTodo(noteLabels) {
     };
 
     const playSequence = () => {
-        console.log("se playea la sequence a "+intervalTime+"bpm");
+        console.log("se playea la sequence con un intervalo de "+intervalTime);
         stopSequence();
         intervalId = setInterval(() => {
             // Resetear las columnas anteriores
@@ -271,7 +271,7 @@ async function crearTodo(noteLabels) {
 //      aqui es donde surge la magia.
 $(document).ready(function () {
 
-    $("#start").click(function () {
+    //$("#start").click(function () {
         $.ajax({
             url: '../res/aud/drums/drums.txt',
             type: 'GET',
@@ -281,8 +281,8 @@ $(document).ready(function () {
             },
             error: function(xhr, status, error) {
                 alert("no se pudo crear, revisa la consola")
-                console.error('error fatal: ', error);
+                console.error('error fatal: '+xhr, status, error);
             }
-        });
+      //  });
     });
 });

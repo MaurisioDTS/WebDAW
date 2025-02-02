@@ -1,130 +1,156 @@
 <!DOCTYPE html>
 <html lang="es">
-<head> <!-- Metadatos de la página. -->
-    <title>Titulo</title>
-    <meta charset="utf-8"/>
-    <meta content="Debería una hermosa descripción acompañar esta página?" name="description"/>
-    <meta content="index,follow" name="robots"/>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebDAW</title>
 
-    <script src="js/jquery-min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.42/Tone.js"></script>
+    <!--    ESTILOS     -->
+    <link href="./css/synth.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="./css/DrumRack.css"/>
+    <link rel="stylesheet" href="./css/mixer.css"/>
 
-    <script src="js/base.js"></script>
+    <!--    SCRIPTS     -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/jquery.taptempo.js"></script>
+    <script src="js/jquery.tempodisplay.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
 
-    <link href="./css/style.css" rel="stylesheet">
-    <link href="./css/DrumRack.css" rel="stylesheet"/>
-    <link href="./favicon.ico" rel="shortcut icon"/>
-    <!--
-        <meta http-equiv="refresh" content="15;URL=http://google.com"/>
-        <meta name="author" content=""/>
-        <meta name="keywords" content=""/>
-    -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #111;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tab-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-between;
+            background-color: #333;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            background-color: #444;
+            transition: background-color 0.3s ease;
+            color: #fff;
+        }
+
+        .tab:hover, .tab.active {
+            background-color: #f39c12;
+            font-weight: bold;
+        }
+
+        .content-container {
+            margin-top: 20px;
+            background-color: #222;
+            border-radius: 0 0 8px 8px;
+            padding: 20px;
+            min-height: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #f39c12;
+        }
+
+    </style>
 </head>
-
-<!-- Cuerpo de la página, rellenalo con cosas. -->
 <body>
-<!-- Botones de las pestañas -->
-<div class="container">
-    <h2>Dynamic Tabs with jQuery</h2>
-    <p>Click on the Tabs to display the active and previous tab.</p>
-    <ul class="nav nav-tabs">
-        <li class="active"><a href="#home">Home</a></li>
-        <li><a href="#menu1">Menu 1</a></li>
-        <li><a href="#menu2">Menu 2</a></li>
-        <li><a href="#menu3">Menu 3</a></li>
-    </ul>
 
-    <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
-            <h3>HOME</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-        <div id="menu1" class="tab-pane fade">
-            <!--    opciones raras    -->
-            <div class="content">
-                <div class="options">
-                    <!--    selector pocho    -->
-                    <form class="container">
-                        <label for="instrument">instrumento</label>
-                        <select class="container" id="instrument" name="inst">
-                            <option value="piano">piano</option>
-                            <option value="bass">bajo</option>
-                            <option value="guitar">guitarra</option>
-                        </select>
-                    </form>
-                    <!--    slider del release    -->
-                    <form class="container">
-                        <p>release: </p>
-                        <input id="release" max="6000" min="100" type="range" value="500">
-                    </form>
-                    <!--    controles metronomo   -->
-                    <div class="container">
-                        <p>metronomo: </p>
-                        <select class="container" id="drum" name="drum">
-                            <option value="cowbell">cencerro</option>
-                            <option value="shaker">huevo</option>
-                        </select>
-                        <input id="tempoSlider" max="250" min="60" type="range" value="120">
-                        <button id="play">Play</button>
-                        <button id="pause">Pause</button>
+<h1>WebDAW</h1>
 
-                        <script src="js/blip.js"></script>
-                        <script src="js/metronome.js"></script>
-                    </div>
-                </div>
-                <!--    empieza teclado pocho   -->
-                <section>
-                    <div class="container" id="teclado">
-                        <script src="js/teclado.js"></script>
+<button id="startPage" class="ssl-button">Start</button>
 
-                        <img class="natural" id="c" src="res/img/natural.svg">
-                        <!----><img class="semitono" id="" src="res/img/semitone.svg">
-                        <img class="natural" id="d" src="res/img/natural.svg">
-                        <!----><img class="semitono" id="" src="res/img/semitone.svg">
-                        <img class="natural" id="e" src="res/img/natural.svg">
-
-                        <img class="natural" id="f" src="res/img/natural.svg">
-                        <!----><img class="semitono" id="" src="res/img/semitone.svg">
-                        <img class="natural" id="g" src="res/img/natural.svg">
-                        <!----><img class="semitono" id="" src="res/img/semitone.svg">
-                        <img class="natural" id="a" src="res/img/natural.svg">
-                        <!----><img class="semitono" id="" src="res/img/semitone.svg">
-                        <img class="natural" id="b" src="res/img/natural.svg">
-                    </div>
-                </section>
-                <!--    acaba teclado pocho-->
-            </div>
-        </div>
-        <div id="menu2" class="tab-pane fade">
-            <h3>Menu 2</h3>
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-        </div>
-        <div id="menu3" class="tab-pane fade">
-            <div class="controls">
-                <button class="ssl-button" id="start">Start</button>
-            </div>
-
-            <div class="grid-container" style="">
-                <div class="notes" id="notes">
-                    <!-- Las etiquetas de las notas se generarán dinámicamente -->
-                </div>
-                <div class="grid" id="grid">
-                    <!-- Las celdas se generarán dinámicamente con JavaScript -->
-                </div>
-            </div>
-            <div class="faders" id="controls"></div>
-            <script src="js/DrumRack.js"></script>
-        </div>
+<div class="tab-container" style="display: none;">
+    <div class="tabs">
+        <div class="tab active" data-target="synth">Synth</div>
+        <div class="tab" data-target="aud1">aud</div>
+        <div class="tab" data-target="aud2">aud</div>
+        <div class="tab" data-target="drums">Drum rack</div>
     </div>
-    <hr>
-    <p class="act"><b>Active Tab</b>: <span></span></p>
-    <p class="prev"><b>Previous Tab</b>: <span></span></p>
+
+    <div class="content-container" id="content">
+        <div class="modules">
+            <div class="nav-content" id="synth">Synasdasdasth</div>
+            <div class="nav-content" id="aud1" style="display: none;">aud1</div>
+            <div class="nav-content" id="aud2" style="display: none;">aud2</div>
+            <div class="nav-content" id="drums" style="display: none;">drums</div>
+        </div>
+        <!-- aqui AJAX carga cosas -->
+    </div>
 </div>
-<!-- Pie de página. -->
+
+<script>
+    $(document).ready(function () {
+
+        $("#startPage").click( function (){
+
+            $(".tab-container").fadeIn();
+
+            Tone.start();
+            console.log("comienza! esta noche oscura te tortura la locura");
+
+            //  puta basura
+            $.ajax({    // para el synth
+                url: 'prueba.html',
+                method: 'GET',
+                success: function (data) { $('#synth').html(data); },
+                error: function () { $('#synth').html('<p>error al cargar el modulo, chekea la consola.</p>'); }
+            });
+
+            $.ajax({    // para el synth
+                url: 'drums.html',
+                method: 'GET',
+                success: function (data) { $('#drums').html(data); },
+                error: function () { $('#drums').html('<p>error al cargar el modulo, chekea la consola.</p>'); }
+            });
+
+
+            document.querySelectorAll('.tab').forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    document.querySelectorAll('.tab').forEach(item => item.classList.remove('active'));
+                    this.classList.add('active');
+
+                    document.querySelectorAll('.nav-content').forEach(content => {
+                        content.style.display = 'none';
+                    });
+
+                    const target = this.getAttribute('data-target');
+                    const contentToShow = document.getElementById(target);
+                    if (contentToShow) {
+                        contentToShow.style.display = 'block';
+                    }
+                });
+            });
+
+
+            $(this).remove();
+        });
+
+
+
+    });
+</script>
+
 </body>
 </html>
