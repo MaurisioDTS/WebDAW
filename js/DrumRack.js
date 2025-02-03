@@ -243,7 +243,7 @@ async function crearTodo(noteLabels) {
             if (currentColumn > 0) {
                 cells.forEach(row => row[currentColumn-1].classList.remove('active-column'));
             } else {
-                cells.forEach(row => row[8].classList.remove('active-column'));
+                cells.forEach(row => row[31].classList.remove('active-column'));
             }
 
             // Marcar la columna actual
@@ -258,7 +258,9 @@ async function crearTodo(noteLabels) {
 
             // Avanzar a la siguiente columna
             currentColumn = (currentColumn +1) % 32;
+
         }, intervalTime);
+        cells.forEach(row => row.forEach(cell => cell.classList.remove('active-column')));
     };
 
     // Manejar botones

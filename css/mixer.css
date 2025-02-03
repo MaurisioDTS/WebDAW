@@ -1,5 +1,5 @@
 .faders{
-    background-color: #333;
+    background-color: #222;
     padding: 10px;
 
     margin-top: auto;
@@ -34,7 +34,7 @@
     text-shadow:  2px 2px 5px #872b2b, -2px -2px 5px #350d0d, 0 0 10px #9e3131;
 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    margin-top: 10px;
+
     text-align: center;
 
     z-index: 10;
