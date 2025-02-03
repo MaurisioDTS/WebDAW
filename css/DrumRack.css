@@ -50,8 +50,8 @@ drums {
 .cell {
     width: auto;
     height: 40px;
-    border: 1px solid #555;
-    border-radius: 2px;
+    border: 1px solid #353535;
+    border-radius: 5px;
     background-color: #323232;
     cursor: pointer;
     display: flex;
