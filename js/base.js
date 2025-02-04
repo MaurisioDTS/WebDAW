@@ -1,11 +1,51 @@
-$(document).ready(function(){
-    $(".nav-tabs a").click(function(){
-        $(this).tab('show');
-    });
-    $('.nav-tabs a').on('shown.bs.tab', function(event){
-        var x = $(event.target).text();         // active tab
-        var y = $(event.relatedTarget).text();  // previous tab
-        $(".act span").text(x);
-        $(".prev span").text(y);
+$(document).ready(function () {
+
+    $("#startPage").click( function (){
+
+        $(".tab-container").fadeIn();
+
+        Tone.start();
+        console.log("comienza! esta noche oscura te tortura la locura");
+
+        //  puta basura
+        $.ajax({    // para el synth
+            url: 'prueba.html',
+            method: 'GET',
+            success: function (data) { $('#synth').html(data); },
+            error: function () { $.toast({
+                icon: 'error',
+                heading: 'no se pudo cargar',
+                text: 'chekea la consola',
+                position: 'mid-center',
+                stack: false
+            }) }
+        });
+
+        $.ajax({    // para el synth
+            url: 'drums.html',
+            method: 'GET',
+            success: function (data) { $('#drums').html(data); },
+            error: function () { $('#drums').html('<p>error al cargar el modulo, chekea la consola.</p>'); }
+        });
+
+        document.querySelectorAll('.tab').forEach(link => {
+            link.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                document.querySelectorAll('.tab').forEach(item => item.classList.remove('active'));
+                this.classList.add('active');
+
+                document.querySelectorAll('.nav-content').forEach(content => {
+                    content.style.display = 'none';
+                });
+
+                const target = this.getAttribute('data-target');
+                const contentToShow = document.getElementById(target);
+                if (contentToShow) {
+                    contentToShow.style.display = 'block';
+                }
+            });
+        });
+        $('.startPage').remove();
     });
 });

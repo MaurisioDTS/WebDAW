@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
-    const synthChannel = new Tone.Channel().toDestination();
-    const channel2 = new Tone.Channel().toDestination();
-    const channel3 = new Tone.Channel().toDestination();
-    const drumChannel = new Tone.Channel().toDestination();
+    const synth1 = new Tone.Channel().toDestination();
+    const synth2 = new Tone.Channel().toDestination();
+    const synth3 = new Tone.Channel().toDestination();
+    const synth4 = new Tone.Channel().toDestination();
 
     const synth = new Tone.Synth({
         oscillator: {
@@ -20,7 +20,7 @@ $(document).ready(function () {
     //  filtro
     const filter = new Tone.Filter({
         type: "lowpass",
-        frequency: 1000,
+        frequency: 10000,
         Q: 1
     });
 
