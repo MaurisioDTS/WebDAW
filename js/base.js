@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     $("#startPage").click( function (){
 
-        $(".tab-container").fadeIn();
+        $(".tab-container").fadeIn('fast');
 
         Tone.start();
         console.log("comienza! esta noche oscura te tortura la locura");
