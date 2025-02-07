@@ -1,13 +1,52 @@
+var rain = new Tone.Buffer("../res/aud/rain.mp3");
+var lofi = new Tone.Buffer("../res/aud/lofi.mp3");
+
 $(document).ready(function () {
 
-    $("#startPage").click( function (){
+    // variables ===================================
+    let rainAudio;
+    let lofiAudio;
 
-        //$(".leftTitle").show("slide", { direction: "left" }, 1000);
-        $(".tab-container").fadeIn('fast');
+    // FUNCIONES ===================================
 
-        Tone.start();
-        console.log("comienza! esta noche oscura te tortura la locura");
+    function createAudio(){
 
+        rainAudio = new Tone.Player({
+            "url": rain
+        }).toDestination();
+
+        lofiAudio = new Tone.Player({
+            "url": lofi
+        }).toDestination();
+
+        rainAudio.loop = true;
+        lofiAudio.loop = true;
+
+        console.log("lofi cargado");
+    }
+
+    function aboutChekcer(target,rain,lofi){
+
+
+        if(target === "about"){
+            rain.start();
+            lofi.start();
+
+            rain.volume.rampTo(0, .1);
+            lofi.volume.rampTo(0, .1);
+
+            console.log("reproduciendo");
+        } else{
+            rain.volume.rampTo(-100, .1);
+            lofi.volume.rampTo(-100, .1);
+
+            console.log("callando");
+        }
+    }
+
+    // LA MAGIA ============================================
+
+    function llamarAjax() {
         //  puta basura
         $.ajax({    // para el synth
             url: 'prueba.html',
@@ -35,6 +74,17 @@ $(document).ready(function () {
             success: function (data) { $('#about').html(data); },
             error: function () { $('#about').html('<p>error al cargar el modulo, chekea la consola.</p>'); }
         });
+    }
+
+    $("#startPage").click( function (){
+
+        //$(".leftTitle").show("slide", { direction: "left" }, 1000);
+        $(".tab-container").fadeIn('fast');
+
+        Tone.start();
+        console.log("comienza! esta noche oscura te tortura la locura");
+
+        llamarAjax();
 
         document.querySelectorAll('.tab').forEach(link => {
             link.addEventListener('click', function (event) {
@@ -48,6 +98,9 @@ $(document).ready(function () {
                 });
 
                 const target = this.getAttribute('data-target');
+
+                aboutChekcer(target,rainAudio,lofiAudio);
+
                 const contentToShow = document.getElementById(target);
                 if (contentToShow) {
                     contentToShow.style.display = 'block';
@@ -55,5 +108,7 @@ $(document).ready(function () {
             });
         });
         $('.start-container').remove();
+        $('.leftTitle').fadeIn();
+        createAudio();
     });
 });

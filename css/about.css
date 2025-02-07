@@ -1,6 +1,73 @@
 #rain {
     margin: 0 ;
-    width: 100%;
-    background: #1A1A1A;
-    border-radius: 20px;
+    width: auto;
+    background: rgba(0, 0, 2, 0.5);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+}
+h2{
+    padding: 10px ;
+
+    color: #359e31;
+    text-align: right;
+
+    box-shadow: inset 2px 2px 5px #386431, inset -2px -2px 5px #1e4917, 0 0 10px #359e31;
+}
+.github{
+    display: flex;
+    flex-direction: column;
+    padding: 10px ;
+    color: #66319e;
+    text-align: center;
+    align-items: center;
+
+    box-shadow: inset 2px 2px 5px #313b64, inset -2px -2px 5px #172349, 0 0 10px #31609e;
+}
+.aboutButton {
+    transition: 0.1s;
+    display: inline-block;
+    width: 50px; /* Ajusta según el tamaño deseado */
+    height: 50px; /* Ajusta según el tamaño deseado */
+    background-color: #9f9f9f; /* Color base del botón */
+    border: none;
+    border-radius: 5px;
+
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    cursor: pointer;
+
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.32);
+}
+.lofiActive{
+    padding: 1px;
+    transition: 0.01s;
+    background-color: #88ff4c; /* Color iluminado */
+    box-shadow: inset 2px 2px 5px #386431, inset -2px -2px 5px #1e4917, 0 0 10px #359e31;
+    color: #000; /* Cambia el color del texto al activarse */
+}
+.rainActive{
+    padding: 1px;
+    transition: 0.01s;
+    background-color: #4c64ff; /* Color iluminado */
+    box-shadow: inset 2px 2px 5px #313b64, inset -2px -2px 5px #172349, 0 0 10px #31609e;
+    color: #000; /* Cambia el color del texto al activarse */
+}
+
+.about{
+    padding: 10px;
+
+    color: #FFFFFF;
+    font-size: 18px;
+    //font-weight: bold;
+    text-shadow: -1px -1px 1px #000, 1px 1px 1px #000;
+    position: relative;
+    z-index: 100;
+}
+svg{
+    height: fit-content;
+    width: fit-content;
 }

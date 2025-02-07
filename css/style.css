@@ -13,7 +13,20 @@ body {
     margin: 0 auto;
     padding: 20px;
 }
+.leftTitle{
+    position: fixed;
 
+    width: 100px;
+    min-height: 60vh;
+    height: auto;
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 1000;
+
+    border-radius: 0 20px 20px 0;
+}
 .tabs {
     display: flex;
     justify-content: space-between;
@@ -70,6 +83,10 @@ h1 {
     text-align: center;
     min-height: 100vh;
 }
+.title-container{
+    align-items: center;
+}
 .letter{
     color: white;
+    text-align: center;
 }
