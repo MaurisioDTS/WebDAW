@@ -50,18 +50,26 @@ h1 {
     color: #f39c12;
 }
 .startPage{
+
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
     padding: 20px;
     border-radius: 20px;
     background-color: #444;
 
     width: 100px;
-
     margin: auto;
     margin-top: 100px
 
+}
+
+.start-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+.letter{
+    color: white;
 }
