@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     $("#startPage").click( function (){
 
+        //$(".leftTitle").show("slide", { direction: "left" }, 1000);
         $(".tab-container").fadeIn('fast');
 
         Tone.start();
@@ -46,6 +47,6 @@ $(document).ready(function () {
                 }
             });
         });
-        $('.startPage').remove();
+        $('.start-container').remove();
     });
 });
