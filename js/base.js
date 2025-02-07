@@ -28,6 +28,13 @@ $(document).ready(function () {
             error: function () { $('#drums').html('<p>error al cargar el modulo, chekea la consola.</p>'); }
         });
 
+        $.ajax({    // para el synth
+            url: 'about.html',
+            method: 'GET',
+            success: function (data) { $('#about').html(data); },
+            error: function () { $('#about').html('<p>error al cargar el modulo, chekea la consola.</p>'); }
+        });
+
         document.querySelectorAll('.tab').forEach(link => {
             link.addEventListener('click', function (event) {
                 event.preventDefault();

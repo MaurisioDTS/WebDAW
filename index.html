@@ -22,11 +22,14 @@
     <script src="js/jquery.tempodisplay.js"></script>
     <script src="js/jquery.toast.min.js"></script>
 
+    <script src="js/raphael-min.js"></script>
+    <script src="js/rain.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
 </head>
 <body>
 
-<h1>WebDAW</h1>
+
 <div class="startPage">
     <button id="startPage" class="ssl-button">Start</button>
 </div>
@@ -35,23 +38,22 @@
 <div class="tab-container" style="display: none;">
     <div class="tabs">
         <div class="tab active" data-target="synth">Synth</div>
-        <div class="tab" data-target="aud1">aud</div>
-        <div class="tab" data-target="aud2">aud</div>
         <div class="tab" data-target="drums">Drum rack</div>
+        <div class="tab" data-target="about">about</div>
     </div>
 
     <div class="content-container" id="content">
         <div class="modules">
-            <div class="nav-content" id="synth">Synasdasdasth</div>
-            <div class="nav-content" id="aud1" style="display: none;">aud1</div>
-            <div class="nav-content" id="aud2" style="display: none;">aud2</div>
-            <div class="nav-content" id="drums" style="display: none;">drums</div>
+            <div class="nav-content" id="synth"></div>
+            <div class="nav-content" id="drums" style="display: none;"></div>
+            <div class="nav-content" id="about" style="display: none;"></div>
         </div>
 
     </div>
 </div>
 
 <script src="js/base.js"></script>
+<script src="js/rain.js"></script>
 
 </body>
 </html>

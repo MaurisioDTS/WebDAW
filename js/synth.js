@@ -74,7 +74,7 @@ $(document).ready(function () {
     const distortion = new Tone.Distortion(0.0);
 
     // ruta: sintetizador -> distorsión -> filtro -> canal 1 -> master
-    synth.chain(distortion, filter, synthChannel);
+    synth.chain(distortion, filter, synth1);
 
     //  controles en el html ======================================00
 
